@@ -1,0 +1,39 @@
+﻿#Img_scroll {
+    position: absolute;
+    top: 40px;
+    left: 500px;
+    width: 600px;
+    height: 864px;
+}
+
+#Inventory{
+    position: absolute;
+    left:540px;
+    top:155px;
+    width:250px;
+    height:630px;
+    border-style:solid;
+}
+
+#CurSelectItem{
+    position: absolute;
+    left:800px;
+    width:250px;
+    top:155px;
+    height:300px;
+    border-style:solid;
+}
+
+#Buttons{
+    position: absolute;
+    left: 800px;
+    width:250px;
+    top:465px;
+    height:320px;
+    border-style:solid;
+}
+
+#InventoryList{
+    height:624px;
+    width:150px;
+}

@@ -1,0 +1,97 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "CharacterPage";
+    var Character = @ViewBag.Character;
+    var CharInfo = @ViewBag.CharInfo;
+}
+
+<head>
+    <title> test </title>
+    <link href="~/Content/CharPage.css" rel="stylesheet" />
+    <script src="~/Scripts/CharacterPage.js"></script>
+
+</head>
+
+
+<body>
+    <img src="~/Resources/Scroll2.jpg" class="img_scroll" id="Scroll">
+    <form action="../SaveCharData">
+        <div class="Info">
+            <div class="NameClassRace">
+                <p id="Name">Name: <input type="text" class="tbresizeInfo" value=@Character.CharName></p>
+                <p id="Class">Class: <input type="text" class="tbresizeInfo" value=@Character.ClassName></p>
+                <p id="Race">Race: <input type="text" class="tbresizeInfo" value=@Character.RaceName></p>
+            </div>
+            <div class="AgeHeightWeight">
+                <p id="Age">Age:<input type="text" class="tbresizeInfo" value=@CharInfo.CharAge></p>
+                <p id="Height">Height:<input type="text" class="tbresizeInfo" value=@CharInfo.CharHeight></p>
+                <p id="Weight">Weight:<input type="text" class="tbresizeInfo" value=@CharInfo.CharWeight></p>
+            </div>
+            <div class="EyesHairSkin">
+                <p id="Eyes">Eyes:<input type="text" class="tbresizeInfo" value=@CharInfo.CharEyes></p>
+                <p id="Skin">Skin:<input type="text" class="tbresizeInfo" value=@CharInfo.CharSkin></p>
+                <p id="Hair">Hair:<input type="text" class="tbresizeInfo" value=@CharInfo.CharHair></p>
+            </div>
+        </div>
+        <div class="Scores">
+            <p class="Heading">Scores</p>
+            <p><input type="text" class="tbresizeScores" id="ScStr" value=@Character.StrScore> Strength</p>
+            <p><input type="text" class="tbresizeScores" id="ScDex" value=@Character.DexScore> Dexterity</p>
+            <p><input type="text" class="tbresizeScores" id="ScCon" value=@Character.ConScore> Constitution</p>
+            <p><input type="text" class="tbresizeScores" id="ScInt" value=@Character.IntScore> Intelligence</p>
+            <p><input type="text" class="tbresizeScores" id="ScWis" value=@Character.WisScore> Wisdom</p>
+            <p><input type="text" class="tbresizeScores" id="ScCha" value=@Character.ChaScore> Charisma</p>
+        </div>
+        <div class="SavingThrows">
+            <p class="Heading">Saving Throws</p>
+            <p><input type="checkbox" id="StStrCk"> Strength <b id="StStr">0</b></p>
+            <p><input type="checkbox" id="StDexCk"> Dexterity <b id="StDex">0</b></p>
+            <p><input type="checkbox" id="StConCk"> Constitution <b id="StCon">0</b></p>
+            <p><input type="checkbox" id="StIntCk"> Intelligence <b id="StInt">0</b></p>
+            <p><input type="checkbox" id="StWisCk"> Wisdom <b id="StWis">0</b></p>
+            <p><input type="checkbox" id="StChaCk"> Charisma <b id="StCha">0</b></p>
+        </div>
+        <div class="Skills">
+            <p> <input type="checkbox" id="CkAcrobatics"><b id="Acrobatics"> 0</b> Acrobatics <b class="ScoreReminder">(dex)</b></p>
+            <p> <input type="checkbox" id="CkAnimHand"><b id="AnimHand"> 0</b> Animal Handling <b class="ScoreReminder">(wis)</b></p>
+            <p> <input type="checkbox" id="CkArcana"><b id="Arcana"> 0</b> Arcana <b class="ScoreReminder">(int)</b></p>
+            <p> <input type="checkbox" id="CkAthletics"><b id="Athletics"> 0</b> Athletics <b class="ScoreReminder">(str)</b></p>
+            <p> <input type="checkbox" id="CkDeception"><b id="Deception"> 0</b> Deception <b class="ScoreReminder">(cha)</"></b></p>
+            <p> <input type="checkbox" id="CkHistory"><b id="History"> 0</b> History <b class="ScoreReminder">(int)</b></p>
+            <p> <input type="checkbox" id="CkInsight"><b id="Insight"> 0</b> Insight <b class="ScoreReminder">(wis)</b></p>
+            <p> <input type="checkbox" id="CkIntimidation"><b id="Intimidation"> 0</b> Intimidation <b class="ScoreReminder">(cha)</b></p>
+            <p> <input type="checkbox" id="CkInvestigation"><b id="Investigation"> 0</b> Investigation <b class="ScoreReminder">(int)</b></p>
+            <p> <input type="checkbox" id="CkMedicine"><b id="Medicine"> 0</b> Medicine <b class="ScoreReminder">(wis)</b></p>
+            <p> <input type="checkbox" id="CkNature"><b id="Nature"> 0</b> Nature <b class="ScoreReminder">(int)</b></p>
+            <p> <input type="checkbox" id="CkPerception"><b id="Perception"> 0</b> Perception <b class="ScoreReminder">(wis)</b></p>
+            <p> <input type="checkbox" id="CkPerformance"><b id="Performance"> 0</b> Performance <b class="ScoreReminder">(cha)</b></p>
+            <p> <input type="checkbox" id="CkPersuasion"><b id="Persuasion"> 0</b> Persuasion <b class="ScoreReminder">(cha)</b></p>
+            <p> <input type="checkbox" id="CkReligion"><b id="Religion"> 0</b> Religion <b class="ScoreReminder">(int)</b></p>
+            <p> <input type="checkbox" id="CkSoH"><b id="SoH"> 0</b> Sleight of hand <b class="ScoreReminder">(dex)</b></p>
+            <p> <input type="checkbox" id="CkStealth"><b id="Stealth"> 0</b> Stealth <b class="ScoreReminder">(dex)</b></p>
+            <p> <input type="checkbox" id="CkSurvival"><b id="Survival"> 0</b> Survival <b class="ScoreReminder">(wis)</b></p>
+        </div>
+        <div class="Stats">
+            <p><input type="text" id="ProfBonus" class="tbresizeScores" value=2> Proficiency bonus</p>
+            <p><input type="text" id="AC" class="tbresizeScores" value=@Character.ArmorClass> Armor Class</p>
+            <p><input type="text" id="CurHp" class="tbresizeScores" value=@Character.CurHealth> Current hp <input type="text" id="MaxHp" class="tbresizeScores" value="@Character.MaxHealth"> Max hp</p>
+            <p><input type="text" id="Initiative" class="tbresizeScores" value=@Character.Initiative> Initiative</p>
+            <p><input type="text" id="Speed" class="tbresizeScores" value=@Character.Speed> Speed</p>
+            <p><input type="text" id="Inspiration" class="tbresizeScores" value=@Character.Inspiration> Inspiration</p>
+            <button onclick="CalcScores()">ReCalcScores</button>
+        </div>
+        <div class="OtherPagesLinks">
+            <input type="button" value="Inventory" onclick="window.location.href='../DnD/Inventory';" /><br /><br />
+            <input type="button" value="Background/story" onclick="window.location.href='BgStory';" /><br /><br />
+            <input type="button" value="Spellbook" onclick="window.location.href='../DnD/Spellbook';" />
+            <input type="submit" id="SaveChanges" value="Save Character">
+        </div>
+    </form>
+    <script>
+        CalcTrained("@Character.TrainedSavingThrows", "@Character.TrainedSkills");
+        CalcScores();
+    </script>
+</body>

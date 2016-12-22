@@ -1,0 +1,109 @@
+﻿        .img_scroll {
+            position: absolute;
+            top: 40px;
+            left: 500px;
+            width: 600px;
+            height: 864px;
+        }
+
+        .Info {
+            position: absolute;
+            width: 488px;
+            height: 70px;
+            left: 554px;
+            top: 155px;
+            border-style:solid;
+        }
+
+        .NameClassRace{
+            position: absolute;
+            width: 160px;
+        }
+
+        .AgeHeightWeight{
+            position: absolute;
+            width: 160px;
+            left:160px;
+        }
+
+        .EyesHairSkin{
+            position: absolute;
+            width: 160px;
+            left:320px;
+        }
+
+        .Scores {
+            position: absolute;
+            width: 115px;
+            height: 159px;
+            left: 554px;
+            top: 230px;
+            border-style: solid;
+        }
+
+        .Stats {
+            position: absolute;
+            left: 803px;
+            top: 230px;
+            width: 238px;
+            height: 159px;
+            border-style: solid;
+        }
+
+        .SavingThrows {
+            position: absolute;
+            width: 129px;
+            height: 159px;
+            left: 671px;
+            top: 230px;
+            border-style: solid;
+        }
+
+        .Skills {
+            position: absolute;
+            left: 554px;
+            top: 390px;
+            height: 405px;
+            width: 246px;
+            border-style: solid;
+        }
+
+        .OtherPagesLinks {
+            position:absolute;
+            left:803px;
+            top:390px;
+            height:405px;
+            width:238px;
+            border-style:solid;
+
+        }
+
+
+        .ScoreReminder{
+            font-size: 9px;
+            color:#404040;
+            float:none;
+            display:inline-block;
+        }
+        
+        .tbresize{
+           max-height: 20px;
+           max-width: 50px;
+        }
+
+        .tbresizeScores{
+            max-height: 20px;
+            max-width: 25px;
+            
+        }
+
+        .tbresizeInfo{
+            max-height:20px;
+            max-width: 100px;
+        }
+
+        #SaveChanges{
+            position:absolute;
+            top:350px;
+            left:1px;
+        }
