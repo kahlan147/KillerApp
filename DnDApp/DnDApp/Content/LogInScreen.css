@@ -1,0 +1,77 @@
+﻿#LoginScreen{
+    position:absolute;
+    top:225px;
+    left:400px;
+    width:800px;
+    height:450px;
+    border-style:solid;
+}
+
+#UserNameDiv {
+    position:absolute;
+    top:0%;
+    width:100%;
+    height:33%;
+}
+
+#UserTag{
+    position:absolute;
+    top:5%;
+    left:40%;
+}
+
+#UserName{
+    position:absolute;
+    top:50%;
+    left:25%;
+    width:50%;
+    max-width:50%;
+    height:50%;
+    border-style:solid;
+}
+
+#PasswordDiv{
+    position:absolute;
+    top:34%;
+    width:100%;
+    height:33%;
+}
+
+#PassTag{
+    position:absolute;
+    top:5%;
+    left:40%;
+}
+
+#Password{
+    position:absolute;
+    top:50%;
+    left:25%;
+    width:50%;
+    max-width:50%;
+    height:50%;
+    border-style:solid;
+}
+
+#Buttons{
+    position:absolute;
+    top:68%;
+    width:100%;
+    height:33%;
+}
+
+#LogInButton{
+    position:absolute;
+    top:10%;
+    left:25%;
+    width:20%;
+    height:50%;
+}
+
+#RegisterButton{
+    position:absolute;
+    top:10%;
+    left:55%;
+    width:20%;
+    height:50%;
+}

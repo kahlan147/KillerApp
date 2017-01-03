@@ -7,19 +7,31 @@ using System.Data.SqlClient;
 
 namespace DnDApp.Models
 {
-    public class Database
+    public static class Database
     {
-        protected SqlConnection sqlConnection {get; set;}
-        private string Connection {get; set;}
-
-        public Database()
+        static SqlConnection sqlConnection
         {
-            Connection = "Server=KAHLAN;" + "Trusted_Connection=yes;" +
+            get
+            {
+                SqlConnection sqlConnection = new SqlConnection(Connection);
+                return sqlConnection;
+            }
+        }
+        private static string Connection
+        {
+            get
+            {
+                string connection = "Server=KAHLAN;" + "Trusted_Connection=yes;" +
             "database=D&DApp; " + "connection timeout=15";
-            sqlConnection = new SqlConnection(Connection);
+                return connection;
+            }
         }
 
-        private DataTable General(string commandString)
+        public static int CharId { get; set; }
+        public static string LoggedUser { get; set; }
+
+
+        private static DataTable General(string commandString)
         {
             DataTable dt = new DataTable();
 
@@ -35,7 +47,7 @@ namespace DnDApp.Models
             return dt;
         }
 
-        public DataRow GetCharacter(int CharId)
+        public static DataRow GetCharacter(int CharId)
         {
             string commandString = @"SELECT * FROM GetCharacter(" + CharId + ")";
 
@@ -44,7 +56,7 @@ namespace DnDApp.Models
 
         }
 
-        public DataRow GetCharacterInfo(int CharId)
+        public static DataRow GetCharacterInfo(int CharId)
         {
             string commandString = @"SELECT * FROM GameCharInfo WHERE CharId = '" + CharId + "'";
 
@@ -52,14 +64,14 @@ namespace DnDApp.Models
             return CharacterInfo.Rows[0];
         }
 
-        public DataTable getInventory(int CharId)
+        public static DataTable getInventory(int CharId)
         {
             string commandString = @"SELECT * FROM Inventory WHERE CharId = '" + CharId + "'";
             DataTable Inventory = General(commandString);
             return Inventory;
         }
 
-        public DataRow getItem(int ItemId)
+        public static DataRow getItem(int ItemId)
         {
             string commandString = @"SELECT * FROM Item WHERE ItemId = '" + ItemId + "'";
             DataTable ItemTable = General(commandString);
@@ -67,12 +79,12 @@ namespace DnDApp.Models
             return ItemRow;
         }
 
-        public void UpdateCharacter()
+        public static void UpdateCharacter()
         {
 
         }
 
-        public void SaveCharacter()
+        public static void SaveCharacter()
         {
            /* string commandString @"INSERT INTO GameCharacter VALUES
             ('" + character.CharName + "', '" + character.RaceName + "', '"  + character.ClassName+"', '"  + character.CharLevel + "', '"  + character.Speed + "', '"  
@@ -82,6 +94,22 @@ namespace DnDApp.Models
             */
             string commandString = "INSERT INTO GameCharacter VALUES ('Test', 'Halfling', 'Rogue',1, 6, 14, 18,10, 10, 12, 17, 13, 4, 0, 12,12, 23452,0, 0, 0)";
             DataTable empty= General(commandString);
+        }
+
+        public static bool LogIn(AppUser appUser)
+        {
+            string commandString = "SELECT dbo.LoggingIn('"+ appUser.UserName + "', '"+ appUser.Password +"') as correctlogin;";
+            DataTable result = General(commandString);
+            DataRow resultRow = result.Rows[0];
+            int resultint = Convert.ToInt32(resultRow["correctlogin"]);
+            if (resultint == 1)
+            {
+                return true;
             }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

@@ -8,6 +8,8 @@ namespace DnDApp.Models
 {
     public class Character
     {
+
+        public int CharId { get; set; }
         public string CharName { get; set; }
         public string RaceName { get; set; }
         public string ClassName { get; set; }
@@ -29,7 +31,91 @@ namespace DnDApp.Models
         public bool PlayerOrNpc { get; set; }
         public bool FriendlyEnemy { get; set; }
 
-        public Character(DataRow CharacterData)
+        public int CharAge { get; set; }
+        public string CharHeight { get; set; }
+        public string CharWeight { get; set; }
+        public string CharEyes { get; set; }
+        public string CharSkin { get; set; }
+        public string CharHair { get; set; }
+        public string CharDescription { get; set; }
+        public string CharBackground { get; set; }
+
+        public Character(DataRow Character, bool WhichData)
+        {
+            if (WhichData == true)
+            {
+                ValuesCharacter(Character);
+            }
+            else
+            {
+                ValuesCharInfo(Character);
+            }
+        }
+
+
+        private void isAllNull()
+        {
+            if (this.CharAge == null)
+            {
+                CharAge = 0;
+            }
+            if (this.CharHeight == null)
+            {
+                CharHeight = "";
+            }
+            if (this.CharWeight == null)
+            {
+                CharWeight = "";
+            }
+            if (this.CharEyes == null)
+            {
+                CharEyes = "";
+            }
+            if (this.CharSkin == null)
+            {
+                CharSkin = "";
+            }
+            if (this.CharHair == null)
+            {
+                CharHair = "";
+            }
+            if (this.CharDescription == null)
+            {
+                CharDescription = "";
+            }
+            if (this.CharBackground == null)
+            {
+                CharBackground = "";
+            }
+        }
+
+        public Character(DataRow Character, DataRow CharInfo)
+        {
+            ValuesCharacter(Character);
+            ValuesCharInfo(CharInfo);
+        }
+
+        private void ValuesCharInfo(DataRow CharacterInfo){
+            CharId = Convert.ToInt32(CharacterInfo["CharId"]);
+            if (CharacterInfo["CharAge"] is DBNull)
+            {
+                this.CharAge = 0;
+            }
+            else
+            {
+                this.CharAge = Convert.ToInt32(CharacterInfo["CharAge"]);
+            }
+            this.CharHeight = CharacterInfo["CharHeight"].ToString();
+            this.CharWeight = CharacterInfo["CharWeight"].ToString();
+            this.CharEyes = CharacterInfo["CharEyes"].ToString();
+            this.CharSkin = CharacterInfo["CharSkin"].ToString();
+            this.CharHair = CharacterInfo["CharHair"].ToString();
+            this.CharDescription = CharacterInfo["CharDescription"].ToString();
+            this.CharBackground = CharacterInfo["CharBackground"].ToString();
+            isAllNull();
+        }
+
+        private void ValuesCharacter(DataRow CharacterData)
         {
             this.CharName = CharacterData["CharName"].ToString();
             this.ClassName = CharacterData["ClassName"].ToString();

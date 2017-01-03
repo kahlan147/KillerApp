@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data;
+using DnDApp.Models;
 
 namespace DnDApp.Controllers
 {
@@ -11,28 +12,32 @@ namespace DnDApp.Controllers
     {
         //
         // GET: /DnD/
-        public ActionResult CharacterPage(int CharId)
+        public ActionResult CharacterPage()
         {
+            int CharId = 1;
             if (CharId != null)
             {
-                Models.Database database = new Models.Database();
-                Models.Character character = new Models.Character(database.GetCharacter(CharId));
-                Models.CharInfo charInfo = new Models.CharInfo(database.GetCharacterInfo(CharId));
+
+                Models.Character character = new Models.Character(Database.GetCharacter(CharId), Database.GetCharacterInfo(CharId));
+                Models.CharInfo charInfo = new Models.CharInfo(Database.GetCharacterInfo(CharId));
                 ViewBag.Character = character;
                 ViewBag.CharInfo = charInfo;
+                return View();
             }
-            return View();
+            else
+            {
+                return RedirectToAction("LogInScreen", "Login");
+            }
         }
 
         public ActionResult Inventory(int CharId)
         {
-            Models.Database database = new Models.Database();
-            DataTable InventoryTable = database.getInventory(CharId);
+            DataTable InventoryTable = Database.getInventory(CharId);
             List<Models.Item> InventoryList = new List<Models.Item>();
             foreach (DataRow InventoryRow in InventoryTable.Rows)
             {
                 int ItemId = Convert.ToInt32(InventoryRow["ItemId"]);
-                DataRow ItemRow = database.getItem(ItemId);
+                DataRow ItemRow = Database.getItem(ItemId);
                 Models.Item newItem = new Models.Item(ItemRow);
                 InventoryList.Add(newItem);
             }
@@ -48,8 +53,7 @@ namespace DnDApp.Controllers
 
         public ActionResult SaveCharData()
         {
-            Models.Database database = new Models.Database();
-            database.SaveCharacter();
+            Database.SaveCharacter();
             return View();
         }
 	}

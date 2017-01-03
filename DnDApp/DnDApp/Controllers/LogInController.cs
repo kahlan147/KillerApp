@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data;
+using DnDApp.Models;
 
 namespace DnDApp.Controllers
 {
@@ -10,7 +12,26 @@ namespace DnDApp.Controllers
     {
         //
         // GET: /LogIn/
-        public ActionResult Index()
+        public ActionResult LogInScreen()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult LogInScreen(AppUser appUser)
+        {
+            if (Database.LogIn(appUser))
+            {
+                Database.LoggedUser = appUser.UserName;
+                return RedirectToAction("CharacterPage", "DnD");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Register()
         {
             return View();
         }
