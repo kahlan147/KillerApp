@@ -111,5 +111,40 @@ namespace DnDApp.Models
                 return false;
             }
         }
+
+        public static bool Register(AppUser appUser)
+        {
+            string commandString = "SELECT dbo.AccountExists('" + appUser.UserName + "') as exist;";
+            DataTable result = General(commandString);
+            DataRow resultRow = result.Rows[0];
+            if (Convert.ToInt32(resultRow["exist"]) == 0)
+            {
+                commandString = "execute Register '" + appUser.UserName + "', '" + appUser.Password + "', 1;";
+                result = General(commandString);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static List<Character> getCharactersFrom()
+        {
+            List<Character> Characters = new List<Character>();
+            string commandString = "SELECT * FROM dbo.GetCharactersFrom('" + LoggedUser + "');";
+            DataTable result = General(commandString);
+            foreach (DataRow rol in result.Rows)
+            {
+                Character character = new Character();
+                character.CharId = Convert.ToInt32(rol["CharId"]);
+                character.CharName = rol["CharName"].ToString();
+                character.ClassName = rol["CharClass"].ToString();
+                character.RaceName = rol["CharRace"].ToString();
+                character.CharLevel = Convert.ToInt32(rol["CharLevel"]);
+                Characters.Add(character);
+            }
+            return Characters;
+        }
     }
 }

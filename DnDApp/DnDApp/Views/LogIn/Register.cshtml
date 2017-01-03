@@ -1,7 +1,31 @@
-﻿
+﻿@model DnDApp.Models.AppUser
 @{
     ViewBag.Title = "Register";
 }
 
-<h2>Register</h2>
 
+<head>
+    <title>Log in screen</title>
+    <link href="~/Content/LogInScreen.css" rel="stylesheet" />
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        <div id="LoginScreen">
+            <div id="UserNameDiv">
+                <h3 id="UserTag">Username:</h3>
+                @Html.TextBoxFor(u => u.UserName, new { @id = "UserName", placeholder = "Username", @Class = "form-control" })
+                @Html.ValidationMessageFor(u => u.UserName)
+            </div>
+            <div id="PasswordDiv">
+                <h3 id="PassTag">Password:</h3>
+                @Html.TextBoxFor(u => u.Password, new { @id = "Password", placeholder = "Password", @Class = "form-control" })
+                @Html.ValidationMessageFor(u => u.Password)
+            </div>
+            <div id="Buttons">
+                <input type="submit" value="Registreer" class="btn" id="LogInButton" />
+                <input type="button" value="Al een account?" class="btn" id="RegisterButton" onclick="location.href='LogInScreen'" />
+            </div>
+        </div>
+    }
+</body>

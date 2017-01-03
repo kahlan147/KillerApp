@@ -8,7 +8,7 @@ namespace DnDApp.Models
 {
     public class Character
     {
-
+        //Charstats
         public int CharId { get; set; }
         public string CharName { get; set; }
         public string RaceName { get; set; }
@@ -31,6 +31,7 @@ namespace DnDApp.Models
         public bool PlayerOrNpc { get; set; }
         public bool FriendlyEnemy { get; set; }
 
+        //CharInfo
         public int CharAge { get; set; }
         public string CharHeight { get; set; }
         public string CharWeight { get; set; }
@@ -39,6 +40,11 @@ namespace DnDApp.Models
         public string CharHair { get; set; }
         public string CharDescription { get; set; }
         public string CharBackground { get; set; }
+
+        public Character()
+        {
+
+        }
 
         public Character(DataRow Character, bool WhichData)
         {

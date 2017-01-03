@@ -35,5 +35,19 @@ namespace DnDApp.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult Register(AppUser appUser)
+        {
+            if (Database.Register(appUser) == true)
+            {
+                Database.LoggedUser = appUser.UserName;
+                return RedirectToAction("CharacterSelect", "MainMenu");
+            }
+            else
+            {
+                return View();
+            }
+        }
 	}
 }
