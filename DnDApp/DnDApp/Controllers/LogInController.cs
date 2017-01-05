@@ -23,7 +23,7 @@ namespace DnDApp.Controllers
             if (Database.LogIn(appUser))
             {
                 Database.LoggedUser = appUser.UserName;
-                return RedirectToAction("CharacterPage", "DnD");
+                return RedirectToAction("CharacterSelect", "MainMenu");
             }
             else
             {

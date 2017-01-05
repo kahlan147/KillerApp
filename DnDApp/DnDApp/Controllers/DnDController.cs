@@ -12,26 +12,33 @@ namespace DnDApp.Controllers
     {
         //
         // GET: /DnD/
-        public ActionResult CharacterPage()
+        public ActionResult CharacterPage(int id)
         {
-            int CharId = 1;
-            if (CharId != null)
+            if (Database.LoggedUser == null)
+            {
+                return RedirectToAction("LogInScreen", "Login");
+            }
+            if (id >= 0)
             {
 
-                Models.Character character = new Models.Character(Database.GetCharacter(CharId), Database.GetCharacterInfo(CharId));
-                Models.CharInfo charInfo = new Models.CharInfo(Database.GetCharacterInfo(CharId));
+                Models.Character character = new Models.Character(Database.GetCharacter(id), Database.GetCharacterInfo(id));
+                Models.CharInfo charInfo = new Models.CharInfo(Database.GetCharacterInfo(id));
                 ViewBag.Character = character;
                 ViewBag.CharInfo = charInfo;
                 return View();
             }
             else
             {
-                return RedirectToAction("LogInScreen", "Login");
+                return RedirectToAction("CharacterSelect", "MainMenu");
             }
         }
 
         public ActionResult Inventory(int CharId)
         {
+            if (Database.LoggedUser == null)
+            {
+                return RedirectToAction("LogInScreen", "Login");
+            }
             DataTable InventoryTable = Database.getInventory(CharId);
             List<Models.Item> InventoryList = new List<Models.Item>();
             foreach (DataRow InventoryRow in InventoryTable.Rows)
@@ -48,13 +55,50 @@ namespace DnDApp.Controllers
 
         public ActionResult Spellbook()
         {
+            if (Database.LoggedUser == null)
+            {
+                return RedirectToAction("LogInScreen", "Login");
+            }
             return View();
         }
 
-        public ActionResult SaveCharData()
+        public ActionResult CreateNewChar()
         {
-            Database.SaveCharacter();
+            if (Database.LoggedUser == null)
+            {
+                return RedirectToAction("LogInScreen", "Login");
+            }
+            ViewBag.Classes = Database.getAllClasses();
+            ViewBag.Races = Database.getAllRaces();
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateNewChar(Character character)
+        {
+            Database.SaveNewCharacter(character);
+            return RedirectToAction("CharacterSelect", "MainMenu");
+        }
+
+        public ActionResult DeleteCharacter(int id)
+        {
+            if (Database.LoggedUser == null)
+            {
+                return RedirectToAction("LogInScreen", "Login");
+            }
+            DataRow result = Database.GetCharacter(id);
+            ViewBag.Name = result["CharName"].ToString();
+            ViewBag.Race = result["RaceName"].ToString();
+            ViewBag.Class = result["ClassName"].ToString();
+            ViewBag.Id = id;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DeleteCharacter(Character character)
+        {
+            Database.DeleteCharacter(character);
+            return RedirectToAction("CharacterSelect", "MainMenu");
         }
 	}
 }

@@ -4,11 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.Mvc;
 
 namespace DnDApp.Models
 {
     public static class Database
     {
+        public static int CharId { get; set; }
+        public static string LoggedUser { get; set; }
+
         static SqlConnection sqlConnection
         {
             get
@@ -26,9 +30,6 @@ namespace DnDApp.Models
                 return connection;
             }
         }
-
-        public static int CharId { get; set; }
-        public static string LoggedUser { get; set; }
 
 
         private static DataTable General(string commandString)
@@ -84,16 +85,26 @@ namespace DnDApp.Models
 
         }
 
-        public static void SaveCharacter()
+        public static void SaveNewCharacter(Character character)
         {
-           /* string commandString @"INSERT INTO GameCharacter VALUES
-            ('" + character.CharName + "', '" + character.RaceName + "', '"  + character.ClassName+"', '"  + character.CharLevel + "', '"  + character.Speed + "', '"  
-              + character.StrScore + "', '" + character.DexScore + "', '"  + character.ConScore + "', '" + character.IntScore + "', '"  + character.WisScore + "', '"  + 
-              character.ChaScore + "', '"  + character.ArmorClass + "', '"  + character.Initiative + "', '"  + character.Inspiration + "', '"  + character.CurHealth + "', '"  
-              + character.MaxHealth + "', '"  + character.TrainedSkills + "', '"  + character.TrainedSavingThrows + "', '"  + 0 + "', '"  + 0"')";
-            */
-            string commandString = "INSERT INTO GameCharacter VALUES ('Test', 'Halfling', 'Rogue',1, 6, 14, 18,10, 10, 12, 17, 13, 4, 0, 12,12, 23452,0, 0, 0)";
-            DataTable empty= General(commandString);
+            //Create a character in the GameCharacter table
+            string commandString = @"INSERT INTO GameCharacter VALUES ('" + character.CharName + "', '" + character.RaceName + "', '"  + character.ClassName + "', " +
+                character.CharLevel + ", "  + character.Speed + ", " + character.StrScore + ", " + character.DexScore + ", "  + character.ConScore + ", " + 
+                character.IntScore + ", "  + character.WisScore + ", "  + character.ChaScore + ", "  + 0 + ", "  + 0 + ", "  + 0 + ", "  + 0 + ", " + 0 + 
+                ", "  + 0 + ", "  + 0 + ", "  + 0 + ", "  + 0 + ")";
+            
+            //get the, by de database given, charid of the added character
+            DataTable results= General(commandString);
+            commandString = @"SELECT CharId FROM GameCharacter WHERE CharName = '" + character.CharName + "' AND RaceName = '" + character.RaceName + 
+                "' AND ClassName = '" + character.ClassName + "'AND CharLevel = "+ character.CharLevel + " AND Speed = " + character.Speed + " AND StrScore = " +
+                    character.StrScore + " AND DexScore = " + character.DexScore + " AND ConScore = " + character.ConScore + " AND IntScore = " + character.IntScore +
+                    "AND WisScore = " + character.WisScore + " AND ChaScore = " + character.ChaScore + ";";
+            results = General(commandString);
+            //bind the character to the loggeduser
+            DataRow resultRow = results.Rows[0];
+            int charId = Convert.ToInt32(resultRow["CharId"]);
+            commandString = @"INSERT INTO UserCharacters VALUES ('" + LoggedUser + "', " + charId + ");";
+            results = General(commandString);
         }
 
         public static bool LogIn(AppUser appUser)
@@ -134,17 +145,47 @@ namespace DnDApp.Models
             List<Character> Characters = new List<Character>();
             string commandString = "SELECT * FROM dbo.GetCharactersFrom('" + LoggedUser + "');";
             DataTable result = General(commandString);
-            foreach (DataRow rol in result.Rows)
+            foreach (DataRow row in result.Rows)
             {
                 Character character = new Character();
-                character.CharId = Convert.ToInt32(rol["CharId"]);
-                character.CharName = rol["CharName"].ToString();
-                character.ClassName = rol["CharClass"].ToString();
-                character.RaceName = rol["CharRace"].ToString();
-                character.CharLevel = Convert.ToInt32(rol["CharLevel"]);
+                character.CharId = Convert.ToInt32(row["CharId"]);
+                character.CharName = row["CharName"].ToString();
+                character.ClassName = row["CharClass"].ToString();
+                character.RaceName = row["CharRace"].ToString();
+                character.CharLevel = Convert.ToInt32(row["CharLevel"]);
                 Characters.Add(character);
             }
             return Characters;
+        }
+
+        public static List<string> getAllClasses()
+        {
+            List<string> classes = new List<string>();
+            string commandString = "SELECT ClassName FROM Class;";
+            DataTable result = General(commandString);
+            foreach (DataRow row in result.Rows)
+            {
+                classes.Add(row["ClassName"].ToString());
+            }
+            return classes;
+        }
+
+        public static List<string> getAllRaces()
+        {
+            List<string> Races = new List<string>();
+            string commandString = "SELECT RaceName FROM Race;";
+            DataTable result = General(commandString);
+            foreach (DataRow row in result.Rows)
+            {
+                Races.Add(row["RaceName"].ToString());
+            }
+            return Races;
+        }
+
+        public static void DeleteCharacter(Character character)
+        {
+            string commandString = @"execute DeleteCharacter " + character.CharId + ";";
+            DataTable empty = General(commandString);
         }
     }
 }

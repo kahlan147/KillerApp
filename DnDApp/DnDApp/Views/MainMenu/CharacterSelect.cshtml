@@ -1,7 +1,94 @@
-﻿
+﻿@using DnDApp.Models;
+
+@model IEnumerable<DnDApp.Models.Character>
+
 @{
     ViewBag.Title = "CharacterSelect";
+    var p = 0;
 }
+
+<link href="~/Content/CharacterSelect.css" rel="stylesheet" />
 
 <h2>CharacterSelect</h2>
 
+<div id="ButtonLocations">
+    <input type="button" id="CreateChar" class="btn" value="Create new Character" onclick="location.href='/DnD/CreateNewChar'" />
+</div>
+<div id="MyCharList">
+    <table id="MyCharTable">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CharName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CharLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RaceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassName)
+            </th>
+            <th>
+                <p>Character page</p>
+            </th>
+            <th>
+                <p>Delete</p>
+            </th>
+        </tr>
+         
+            @foreach (var item in Model)
+            {
+                p++;
+                if (p == 1)
+                {
+                <tr id="ColourCode">
+                    @{p = -1;}
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.CharName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CharLevel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RaceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassName)
+                </td>
+                <td>
+                    @Html.ActionLink("Characterpage", "CharacterPage", "DnD", new { id = item.CharId }, null)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete Character", "DeleteCharacter", "DnD", new { id = item.CharId }, null)
+                </td>
+                </tr>
+                }
+                else
+                {
+                <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CharName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CharLevel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RaceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClassName)
+                </td>
+                <td>
+                    @Html.ActionLink("Characterpage", "CharacterPage", "DnD", new { id = item.CharId }, null)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete Character", "DeleteCharacter", "DnD", new { id = item.CharId}, null)
+                </td>
+                </tr>
+                }
+            }
+        
+    </table>
+</div>

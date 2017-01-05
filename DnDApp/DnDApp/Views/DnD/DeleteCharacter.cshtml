@@ -1,0 +1,23 @@
+﻿@model DnDApp.Models.Character
+
+@{
+    ViewBag.Title = "DeleteCharacter";
+    var name = ViewBag.Name;
+    var race = ViewBag.Race;
+    var charClass = ViewBag.Class;
+    var id = ViewBag.Id;
+}
+
+<h2>DeleteCharacter</h2>
+
+
+@using (Html.BeginForm())
+{
+    <p>Are you certain that you want to delete @name, the @race @charClass?</p>
+    <p>This can not be undone.</p>
+    
+    <input type="submit" value="Delete" />
+    <input type="button" value="Cancel" onclick="location.href='/MainMenu/CharacterSelect'" />
+    <p hidden> @Html.TextBoxFor(u => u.CharId, new { @Value = id, @Class = "form-control" })
+               @Html.ValidationMessageFor(u => u.CharId)</p>
+}

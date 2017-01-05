@@ -13,8 +13,12 @@ namespace DnDApp.Controllers
         // GET: /MainMenu/
         public ActionResult CharacterSelect()
         {
+            if (Database.LoggedUser == null)
+            {
+                return RedirectToAction("LogInScreen", "Login");
+            }
             List<Character> MyCharacters = Database.getCharactersFrom();
-            return View();
+            return View(MyCharacters);
         }
 	}
 }
