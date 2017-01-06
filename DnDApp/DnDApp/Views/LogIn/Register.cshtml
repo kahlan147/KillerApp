@@ -11,6 +11,8 @@
 <body>
     @using (Html.BeginForm())
     {
+            <h3> Register</h3>
+            <p> Please enter your desired username and password</p>
         <div id="LoginScreen">
             <div id="UserNameDiv">
                 <h3 id="UserTag">Username:</h3>
@@ -23,8 +25,8 @@
                 @Html.ValidationMessageFor(u => u.Password)
             </div>
             <div id="Buttons">
-                <input type="submit" value="Registreer" class="btn" id="LogInButton" />
-                <input type="button" value="Al een account?" class="btn" id="RegisterButton" onclick="location.href='LogInScreen'" />
+                <input type="submit" value="Register" class="btn" id="LogInButton" />
+                <input type="button" value="Got an account?" class="btn" id="RegisterButton" onclick="location.href='LogInScreen'" />
             </div>
         </div>
     }

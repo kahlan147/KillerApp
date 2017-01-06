@@ -5,13 +5,13 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "CharacterPage";
-    var Character = Database.currentCharacter;//@ViewBag.Character;
+    var Character = Database.currentCharacter;
+    var Classes = Database.getAllClasses();
+    var Races = Database.getAllRaces();
 }
 
    <link href="~/Content/CharPage.css" rel="stylesheet" />
    <script src="~/Scripts/CharacterPage.js"></script>
-    
-
     <div>
         @using (Html.BeginForm())
         {
@@ -19,8 +19,8 @@
             <div class="Info">
                 <div class="NameClassRace">
                     <p id="Name">Name: @Html.TextBoxFor(u => u.CharName, new { @Value = @Character.CharName, @Class = "tbresizeInfo" })</p>
-                    <p id="Class">Class: @Html.TextBoxFor(u => u.ClassName, new { @Value = @Character.ClassName, @Class = "tbresizeInfo" })</p>
-                    <p id="Race">Race: @Html.TextBoxFor(u => u.RaceName, new { @Value = @Character.RaceName, @Class = "tbresizeInfo" })</p>
+                    <p id="Class">Class: @Html.DropDownListFor(u => u.ClassName, new SelectList(Classes, @Character.ClassName), new { @Class = "tbresizeInfo" })</p>
+                    <p id="Race">Race: @Html.DropDownListFor(u => u.RaceName, new SelectList(Races, @Character.RaceName), new { @Class="tbresizeInfo" })</p>
                 </div>
                 <div class="AgeHeightWeight">
                     <p id="Age">Age:@Html.TextBoxFor(u => u.CharAge, new {@Class = "tbresizeInfo", @Value=@Character.CharAge})</p>
@@ -72,7 +72,7 @@
                 <p> <input type="checkbox" id="CkSurvival"><b id="Survival"> 0</b> Survival <b class="ScoreReminder">(wis)</b></p>
             </div>
             <div class="Stats"><!--ProfBonus, AC, CurHp, MaxHp,Initiative, Speed, Inspiration-->
-                <p><input type="checkbox" id="ProfBonus" value="2" class="tbresizeScores" /> Proficiency bonus</p>
+                <p>@Html.TextBoxFor(u => u.CharLevel, new { @Id = "level", @Class = "tbresizeScores", @Value = @Character.CharLevel }) Level</p>
                 <p>@Html.TextBoxFor(u => u.ArmorClass, new { @Id = "AC", @Class = "tbresizeScores", @Value = @Character.ArmorClass }) Armor Class</p>
                 <p>@Html.TextBoxFor(u => u.CurHealth, new { @Id = "CurHp", @Class = "tbresizeScores", @Value = @Character.CurHealth }) Current hp @Html.TextBoxFor(u => u.MaxHealth, new { @Id = "MaxHp", @Class = "tbresizeScores", @Value = @Character.MaxHealth}) Max hp</p>
                 <p>@Html.TextBoxFor(u => u.Initiative, new { @Id = "Initiative", @Class = "tbresizeScores", @Value = @Character.Initiative }) Initiative</p>
@@ -81,10 +81,10 @@
                 <input type="button" onclick="CalcScores()" value="Calculate modifiers"/>
             </div>
             <div class="OtherPagesLinks">
-                <input type="button" value="Inventory" onclick="window.location.href='../DnD/Inventory';" /><br /><br />
+                <input type="button" value="Inventory" onclick="window.location.href='/DnD/Inventory';" /><br /><br />
                 <input type="button" value="Background/story" onclick="window.location.href='BgStory';" /><br /><br />
-                <input type="button" value="Spellbook" onclick="window.location.href='../DnD/Spellbook';" />
-                <input type="submit" onclick="CalcScores()" value="Save Changes" />
+                <input type="button" value="Spellbook" onclick="window.location.href='/DnD/Spellbook';" />
+                <input type="submit" onclick="CalcAll()" value="Save Changes" />
             </div>
             <p hidden>                
                 @Html.TextBoxFor(u => u.CharId, new {@Value = @Character.CharId })

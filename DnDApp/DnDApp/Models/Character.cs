@@ -126,6 +126,7 @@ namespace DnDApp.Models
             this.CharName = CharacterData["CharName"].ToString();
             this.ClassName = CharacterData["ClassName"].ToString();
             this.RaceName = CharacterData["RaceName"].ToString();
+            this.CharLevel = Int32.Parse(CharacterData["CharLevel"].ToString());
 
             this.StrScore = Int32.Parse(CharacterData["StrScore"].ToString());
             this.DexScore = Int32.Parse(CharacterData["DexScore"].ToString());

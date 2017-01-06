@@ -114,11 +114,19 @@ namespace DnDApp.Models
 
         public static void UpdateCharacter(Character newCharacter)
         {
-            string commandString = @"UPDATE GameCharInfo
+            string commandString = @"UPDATE GameCharacter 
+            SET CharName = '" + newCharacter.CharName + "', RaceName = '" + newCharacter.RaceName + "', ClassName = '" + newCharacter.ClassName + "', CharLevel = " + newCharacter.CharLevel +
+            ", Speed = " + newCharacter.Speed + ", StrScore = " + newCharacter.StrScore + ", DexScore = " + newCharacter.DexScore + ", ConScore = " + newCharacter.ConScore + ", IntScore = " + newCharacter.IntScore +
+            ", WisScore = " + newCharacter.WisScore + ", ChaScore = " + newCharacter.ChaScore + ", ArmorClass = " + newCharacter.ArmorClass + ", Initiative = " + newCharacter.Initiative +
+            ", Inspiration = " + newCharacter.Inspiration + ", CurHealth = " + newCharacter.CurHealth + ", MaxHealth= " + newCharacter.MaxHealth +
+            ", TrainedSkills = " + newCharacter.TrainedSkills + ", TrainedSavingThrows = " + newCharacter.TrainedSavingThrows +
+            " WHERE CharId = " + newCharacter.CharId + ";";
+            DataTable Empty = General(commandString);
+            commandString = @"UPDATE GameCharInfo
             SET CharAge = " + newCharacter.CharAge + ", CharHeight= '" + newCharacter.CharHeight + "', CharWeight='" + newCharacter.CharWeight +
             "', CharEyes = '" + newCharacter.CharEyes + "', CharSkin= '" + newCharacter.CharSkin + "', CharHair='" + newCharacter.CharHair + 
             "' WHERE CharId=" + newCharacter.CharId + ";";
-            DataTable Empty = General(commandString);
+            Empty = General(commandString);
         }
 
         public static void SaveNewCharacter(Character character)
@@ -216,6 +224,20 @@ namespace DnDApp.Models
                 Races.Add(row["RaceName"].ToString());
             }
             return Races;
+        }
+
+        public static List<Item> getAllItems()
+        {
+            List<Item> AllItems = new List<Item>();
+            string commandString = "SELECT * FROM Item;";
+            DataTable result = General(commandString);
+            foreach (DataRow row in result.Rows)
+            {
+                Item newItem = new Item(row);
+                AllItems.Add(newItem);
+            }
+
+            return AllItems;
         }
 
         public static void DeleteCharacter(Character character)

@@ -21,9 +21,18 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("CharacterPage", "CharacterPage", "DnD")</li>
-                    <li>@Html.ActionLink("Spellbook", "Spellbook", "DnD")</li>
-                    <li>@Html.ActionLink("Inventory", "Inventory", "DnD")</li>
+                    @{if (DnDApp.Models.Database.AllowedToBeHere("low") == true)
+                    {
+                        <li>@Html.ActionLink("CharacterSelect", "CharacterSelect", "MainMenu")</li>
+                    }
+                    if (DnDApp.Models.Database.AllowedToBeHere("high") == true)
+                    {
+                        <li>@Html.ActionLink("CharacterPage", "CharacterPage", "DnD")</li>
+                        <li>@Html.ActionLink("Spellbook", "Spellbook", "DnD")</li>
+                        <li>@Html.ActionLink("Inventory", "Inventory", "DnD")</li>
+                    }
+                      
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

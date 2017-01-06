@@ -1,35 +1,28 @@
 ﻿
+@model DnDApp.Models.Inventory
+
 @{
     ViewBag.Title = "Inventory";
     var MyInventory = @ViewBag.Inventory;
-    //test
-    var test = 1;
+    var AllItems = @ViewBag.AllItems;
 }
 
-<head>
-    <title> test </title>
     <link href="~/Content/Inventory.css" rel="stylesheet" />
     <script src="~/Scripts/Inventory.js"></script>
-</head>
 
-
-<body>
-<img src="~/Resources/Scroll2.jpg" id="Img_scroll">
+<div>
+    @using (Html.BeginForm()) { 
+    <img src="~/Resources/Scroll2.jpg" id="Img_scroll">
     <div id="Inventory">
-        <select name="test" size="9999" id="InventoryList">
-            <option>text1</option>
-            <option>text2</option>
-            <option>text3</option>
-            <option>text4</option>
-            <option>text5</option>
-        </select>
     </div>
     <div id="CurSelectItem">
 
     </div>
     <div id="Buttons">
 
-    </div>
+    </div>   
+    }
+</div>
     <script>
         var Item = "@MyInventory[2]";
         var Item2 = "@MyInventory[1]";
@@ -37,4 +30,3 @@
         CreateInventory(Items)
        
     </script>
-</body>

@@ -120,17 +120,37 @@
     }
 }
 
+function getProfBonus() {
+    var Level = document.getElementById("level").value;
+    var ProfBonus;
+    if (+Level <= 4) {
+        ProfBonus = 2;
+    }
+    else if (+Level > 4 && +Level <= 8) {
+        ProfBonus = 3;
+    }
+    else if (+Level > 8 && +Level <= 12){
+        ProfBonus = 4;
+    }
+    else if(+Level > 12 && +Level <= 16){
+        ProfBonus = 5;
+    }
+    else if (+Level > 16) {
+        ProfBonus = 6;
+    }
+    return ProfBonus;
+}
+
 function CalcScores() {
-    var ProfBonus = 0;
+    
+
+    var ProfBonus = getProfBonus();
     var strMod = 0;
     var dexMod = 0;
     var conMod = 0;
     var wisMod = 0;
     var intMod = 0;
     var chaMod = 0;
-    
-    //get the ProfBonus
-    ProfBonus = document.getElementById('ProfBonus').value;
 
     //Calculate modifiers
     var CurScore = document.getElementById('ScStr').value;
@@ -508,10 +528,47 @@ function CalcAll() {
                 SkillArray[x] = "0";
             }
     }
-    var resultSkill = "";
-    for(var x = 0; x<18; x++){
-        result += SkillArray[x];
+
+    for (var x = 0; x < 6; x++) {
+            switch (x) {
+                case 0:
+                    current = document.getElementById('StStrCk').checked;
+                    break;
+                case 1:
+                    current = document.getElementById('StDexCk').checked;
+                    break;
+                case 2:
+                    current = document.getElementById('StConCk').checked;
+                    break;
+                case 3:
+                    current = document.getElementById('StIntCk').checked;
+                    break;
+                case 4:
+                    current = document.getElementById('StWisCk').checked;
+                    break;
+                case 5:
+                    current = document.getElementById('StChaCk').checked;
+                    break;
+            }
+
+            if (current == true) {
+                SavingThrowArray[x] = "1";
+            }
+            else {
+                SavingThrowArray[x] = "0";
+            }
     }
-    var test = parseInt(result, 2);
-    alert(test);
+
+    var resultSkill = "";
+    var resultSavingThrows = "";
+    for(var x = 0; x<18; x++){
+        resultSkill += SkillArray[x];
+    }
+    for (var x = 0; x < 6; x++) {
+        resultSavingThrows += SavingThrowArray[x];
+    }
+    var SkillDec = parseInt(resultSkill, 2);
+    var STDec = parseInt(resultSavingThrows, 2)
+    document.getElementById("tbTrainedSkills").value = SkillDec;
+    document.getElementById("tbTrainedST").value = STDec;
 }
