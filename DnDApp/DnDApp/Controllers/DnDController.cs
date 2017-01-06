@@ -14,23 +14,26 @@ namespace DnDApp.Controllers
         // GET: /DnD/
         public ActionResult CharacterPage(int id)
         {
-            if (Database.LoggedUser == null)
-            {
-                return RedirectToAction("LogInScreen", "Login");
-            }
-            if (id >= 0)
-            {
-
+            Database.CharId = id;
+            if(Database.AllowedToBeHere("high")){
                 Models.Character character = new Models.Character(Database.GetCharacter(id), Database.GetCharacterInfo(id));
-                Models.CharInfo charInfo = new Models.CharInfo(Database.GetCharacterInfo(id));
-                ViewBag.Character = character;
-                ViewBag.CharInfo = charInfo;
+                Database.currentCharacter = character;
                 return View();
             }
             else
             {
                 return RedirectToAction("CharacterSelect", "MainMenu");
             }
+        }
+
+        [HttpPost]
+        public ActionResult CharacterPage(Character newCharacter)
+        {
+            Database.UpdateCharacter(newCharacter);
+            int id = newCharacter.CharId;
+            Models.Character newcharacter = new Models.Character(Database.GetCharacter(id), Database.GetCharacterInfo(id));
+            Database.currentCharacter = newcharacter;
+            return View();
         }
 
         public ActionResult Inventory(int CharId)

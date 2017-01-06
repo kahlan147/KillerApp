@@ -118,10 +118,9 @@
             }
         }
     }
-    }
+}
 
 function CalcScores() {
-
     var ProfBonus = 0;
     var strMod = 0;
     var dexMod = 0;
@@ -240,7 +239,6 @@ function CalcScores() {
         }
 
     }
-
     //Saving throw scores
 
     //Str
@@ -290,7 +288,6 @@ function CalcScores() {
     }
     score += +chaMod;
     document.getElementById('StCha').innerHTML = " " + score;
-
 
     //Skills
 
@@ -438,4 +435,83 @@ function CalcScores() {
     }
     score += +wisMod;
     document.getElementById('Survival').innerHTML = " " + score;
+}
+
+function CalcAll() {
+    CalcScores();
+
+    var SavingThrowArray = [];
+    var SkillArray = [];
+
+    var current;
+    for (var x = 0; x < 18; x++) {
+            switch (x) {
+                case 0:
+                    current = document.getElementById('CkAcrobatics').checked;
+                    break;
+                case 1:
+                    current = document.getElementById('CkAnimHand').checked;
+                    break;
+                case 2:
+                    current = document.getElementById('CkArcana').checked;
+                    break;
+                case 3:
+                    current = document.getElementById('CkAthletics').checked;
+                    break;
+                case 4:
+                    current = document.getElementById('CkDeception').checked;
+                    break;
+                case 5:
+                    current = document.getElementById('CkHistory').checked;
+                    break;
+                case 6:
+                    current = document.getElementById('CkInsight').checked;
+                    break;
+                case 7:
+                    current = document.getElementById('CkIntimidation').checked;
+                    break;
+                case 8:
+                    current = document.getElementById('CkInvestigation').checked;
+                    break;
+                case 9:
+                    current = document.getElementById('CkMedicine').checked;
+                    break;
+                case 10:
+                    current = document.getElementById('CkNature').checked;
+                    break;
+                case 11:
+                    current = document.getElementById('CkPerception').checked;
+                    break;
+                case 12:
+                    current = document.getElementById('CkPerformance').checked;
+                    break;
+                case 13:
+                    current = document.getElementById('CkPersuasion').checked;
+                    break;
+                case 14:
+                    current = document.getElementById('CkReligion').checked;
+                    break;
+                case 15:
+                    current = document.getElementById('CkSoH').checked;
+                    break;
+                case 16:
+                    current = document.getElementById('CkStealth').checked;
+                    break;
+                case 17:
+                    current = document.getElementById('CkSurvival').checked;
+                    break;
+            }
+            if (current == true) {
+                SkillArray[x] = "1";
+            }
+            else {
+                SkillArray[x] = "0";
+            }
+    }
+    var resultSkill = "";
+    for(var x = 0; x<18; x++){
+        result += SkillArray[x];
+    }
+    var test = parseInt(result, 2);
+    alert(test);
 }

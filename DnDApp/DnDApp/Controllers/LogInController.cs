@@ -14,7 +14,14 @@ namespace DnDApp.Controllers
         // GET: /LogIn/
         public ActionResult LogInScreen()
         {
-            return View();
+            if (Database.LoggedUser == null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("CharacterSelect", "MainMenu");
+            }
         }
 
         [HttpPost]
@@ -48,6 +55,12 @@ namespace DnDApp.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult Logout()
+        {
+            Database.LoggedUser = null;
+            return RedirectToAction("LoginScreen", "Login");
         }
 	}
 }

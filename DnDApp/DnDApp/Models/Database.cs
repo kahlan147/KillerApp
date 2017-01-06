@@ -12,15 +12,8 @@ namespace DnDApp.Models
     {
         public static int CharId { get; set; }
         public static string LoggedUser { get; set; }
+        public static Character currentCharacter { get; set; }
 
-        static SqlConnection sqlConnection
-        {
-            get
-            {
-                SqlConnection sqlConnection = new SqlConnection(Connection);
-                return sqlConnection;
-            }
-        }
         private static string Connection
         {
             get
@@ -31,6 +24,14 @@ namespace DnDApp.Models
             }
         }
 
+        static SqlConnection sqlConnection
+        {
+            get
+            {
+                SqlConnection sqlConnection = new SqlConnection(Connection);
+                return sqlConnection;
+            }
+        }
 
         private static DataTable General(string commandString)
         {
@@ -46,6 +47,37 @@ namespace DnDApp.Models
                 }
             }
             return dt;
+        }
+
+        public static bool AllowedToBeHere(string Permission)
+        {
+            if (LoggedUser == null)
+            {
+                return false;
+            }
+            else
+            {
+
+                if (Permission == "low")
+                {
+                    return true;
+                }
+                else if (Permission == "high")
+                {
+                    string commandString = @"SELECT count(*) as Result FROM UserCharacters WHERE UserName = '"+ LoggedUser +"' AND CharId = "+CharId+";";
+                    DataTable result = General(commandString);
+                    DataRow resultRow = result.Rows[0];
+                    if (Convert.ToInt32(resultRow["Result"]) >= 1)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
         }
 
         public static DataRow GetCharacter(int CharId)
@@ -80,9 +112,13 @@ namespace DnDApp.Models
             return ItemRow;
         }
 
-        public static void UpdateCharacter()
+        public static void UpdateCharacter(Character newCharacter)
         {
-
+            string commandString = @"UPDATE GameCharInfo
+            SET CharAge = " + newCharacter.CharAge + ", CharHeight= '" + newCharacter.CharHeight + "', CharWeight='" + newCharacter.CharWeight +
+            "', CharEyes = '" + newCharacter.CharEyes + "', CharSkin= '" + newCharacter.CharSkin + "', CharHair='" + newCharacter.CharHair + 
+            "' WHERE CharId=" + newCharacter.CharId + ";";
+            DataTable Empty = General(commandString);
         }
 
         public static void SaveNewCharacter(Character character)

@@ -18,7 +18,7 @@
             </div>
             <div id="PasswordDiv">
                 <h3 id="PassTag">Password:</h3>
-                @Html.TextBoxFor(u => u.Password, new {@id="Password", placeholder = "Password", @Class = "form-control" })
+                @Html.PasswordFor(u => u.Password, new {@id="Password", placeholder = "Password", @Class = "form-control" })
                 @Html.ValidationMessageFor(u =>u.Password)
             </div>
             <div id="Buttons">
