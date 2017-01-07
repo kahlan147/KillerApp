@@ -14,7 +14,7 @@
     @using (Html.BeginForm()) { 
     <img src="~/Resources/Scroll2.jpg" id="Img_scroll">
     <div id="Inventory">
-        @Html.ListBoxFor(u=> u.SelectedItems, new MultiSelectList(Inventory.MyItems, "Id", "Showable"), new{@Class="resizetest", size=40})
+        @Html.ListBoxFor(u => u.SelectedItems, new MultiSelectList(Inventory.MyItems, "Id", "Showable"), new { @Id = "MyInventoryList", @Class = "resizetest", size = 40 })
     </div>
     <div id="AllItems">
         <h3>All items</h3>
@@ -23,14 +23,14 @@
             <input type="submit" name="command" value="More info" id="MoreInfoButton" />
     </div>
     <div id="Buttons">
-        <input type="submit" name="command" value="Increase +1" />
-        <input type="submit" name="command" value="Increase +10" />
-        <input type="submit" name="command" value="Increase +20" />
-        <input type="submit" name="command" value="Decrease -1" />
-        <input type="submit" name="command" value="Decrease -10" />
-        <input type="submit" name="command" value="Decrease -20" />
-        <input type="submit" name="command" value="Remove" />
-        <input type="submit" name="command" value="More Info" />
+        <input type="submit" name="command" value="Increase +1" class="MyInvBt" id="Inc1" />
+        <input type="submit" name="command" value="Increase +10" class="MyInvBt" id="Inc10" />
+        <input type="submit" name="command" value="Increase +20" class="MyInvBt" id="Inc20" />
+        <input type="submit" name="command" value="Decrease -1" class="MyInvBt" id="Dec1" />
+        <input type="submit" name="command" value="Decrease -10" class="MyInvBt" id="Dec10" />
+        <input type="submit" name="command" value="Decrease -20" class="MyInvBt" id="Dec20" />
+        <input type="submit" name="command" value="Remove" class="MyInvBt" id="btRemove" />
+        <input type="submit" name="command" value="More Info" class="MyInvBt" id="btMI" />
     </div>   
     }
 </div>

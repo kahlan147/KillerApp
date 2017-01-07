@@ -1,8 +1,17 @@
 ﻿@model DnDApp.Models.AppUser
 @{
     ViewBag.Title = "Register";
+    var error = ViewBag.ErrorMessage;
 }
 
+@{
+    if (@error != null)
+    {
+        <script>
+            alert("@error");
+        </script>
+    }
+}
 
 <head>
     <title>Log in screen</title>

@@ -233,7 +233,7 @@ namespace DnDApp.Controllers
                 string name = Database.MoreInfoSpell;
                 DataRow SpellRow = Database.getSpell(name);
                 Spell newSpell = new Spell(SpellRow);
-                ViewBag.Object = SpellRow;
+                ViewBag.Object = newSpell;
                 ViewBag.SpellOrItem = "Spell";
                 return View();
             }

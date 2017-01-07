@@ -192,6 +192,7 @@
     <Content Include="Content\CharPage.css" />
     <Content Include="Content\Inventory.css" />
     <Content Include="Content\LogInScreen.css" />
+    <Content Include="Content\MoreInfo.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

@@ -126,7 +126,8 @@ namespace DnDApp.Models
                 string SpellName = spellbookRow["SpellName"].ToString();
                 DataRow SpellRow = getSpell(SpellName);
                 Spell newSpell = new Spell(SpellRow);
-                if (spellbookRow["Prepared"].ToString() == "1")
+                string prepared = spellbookRow["Prepared"].ToString();
+                if (prepared == "True")
                 {
                     newSpell.Prepared = true;
                 }

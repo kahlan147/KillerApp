@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿
+@using DnDApp.Models;
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -27,7 +30,7 @@
                     }
                     if (DnDApp.Models.Database.AllowedToBeHere("high") == true)
                     {
-                        <li>@Html.ActionLink("CharacterPage", "CharacterPage", "DnD")</li>
+                        <li>@Html.ActionLink("CharacterPage", "CharacterPage/" + Database.CharId, "DnD")</li>
                         <li>@Html.ActionLink("Spellbook", "Spellbook", "DnD")</li>
                         <li>@Html.ActionLink("Inventory", "Inventory", "DnD")</li>
                     }

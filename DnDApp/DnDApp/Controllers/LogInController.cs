@@ -34,6 +34,7 @@ namespace DnDApp.Controllers
             }
             else
             {
+                ViewBag.ErrorMessage = "Username or password is incorrect.";
                 return View();
             }
         }
@@ -46,13 +47,28 @@ namespace DnDApp.Controllers
         [HttpPost]
         public ActionResult Register(AppUser appUser)
         {
-            if (Database.Register(appUser) == true)
+            try
             {
-                Database.LoggedUser = appUser.UserName;
-                return RedirectToAction("CharacterSelect", "MainMenu");
+                if (appUser.UserName == "" || appUser.Password == "" || appUser.UserName.Contains(" ") || appUser.Password.Contains(" ") 
+                    || appUser.UserName == null || appUser.Password == null || appUser.UserName.Length <6 || appUser.Password.Length<6)
+                {
+                    ViewBag.ErrorMessage = "Invalid username or password, username and password must be atleast 6 characters long and may not contain spaces.";
+                    return View();
+                }
+                if (Database.Register(appUser) == true)
+                {
+                    Database.LoggedUser = appUser.UserName;
+                    return RedirectToAction("CharacterSelect", "MainMenu");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Username is already in use, try something else.";
+                    return View();
+                }
             }
-            else
+            catch
             {
+                ViewBag.ErrorMessage = "An fatal error occured, please try again later. Our lab monkeys are working hard to fix this.";
                 return View();
             }
         }

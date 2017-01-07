@@ -7,23 +7,26 @@
     var MySpellBook = @ViewBag.MySpellBook;
 }
 
+<link href="~/Content/Inventory.css" rel="stylesheet" />
+
 <div>
     @using (Html.BeginForm())
     {
         <img src="~/Resources/Scroll2.jpg" id="Img_scroll">
-        <div id="MySpellBook">
-            @Html.ListBoxFor(u => u.SelectedSpells, new MultiSelectList(MySpellBook.MySpells, "SpellName", "Showable"), new { size = 40 })
+        <div id="Inventory">
+            @Html.ListBoxFor(u => u.SelectedSpells, new MultiSelectList(MySpellBook.MySpells, "SpellName", "Showable"), new { @Id = "MyInventoryList", @Class = "resizetest", size = 40 })
         </div>
-        <div>
-            @Html.ListBoxFor(u => u.ToBeAddedSpells, new MultiSelectList(AllSpells, "SpellName", "SpellName"), new{size=50})
-            <input type="submit" name="command" value="More info" />
-            <input type="submit" name="command" value="Add" />
+        <div id="AllItems">
+            <h3>All spells</h3>
+            @Html.ListBoxFor(u => u.ToBeAddedSpells, new MultiSelectList(AllSpells, "SpellName", "SpellName"), new{@Id="AllItemsBox", @Class="resizetest", size=50})
+            <input type="submit" name="command" value="More info" id="MoreInfoButton"/>
+            <input type="submit" name="command" value="Add" id="AddButton"/>
         </div>
-        <div>
-            <input type="submit" name="command" value="More Info" />
-            <input type="submit" name="command" value="Remove" />
-            <input type="submit" name="command" value="Prepare" />
-            <input type="submit" name="command" value="Unprepare" />
+        <div id="Buttons">
+            <input type="submit" name="command" value="More Info" class="MyInvBt" id="btRemove" />
+            <input type="submit" name="command" value="Remove" class="MyInvBt" id="Dec20" />
+            <input type="submit" name="command" value="Prepare" class="MyInvBt" id="Inc10" />
+            <input type="submit" name="command" value="Unprepare" class="MyInvBt" id="Inc20" />
         </div>
     }
 </div>

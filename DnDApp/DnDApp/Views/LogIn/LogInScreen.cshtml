@@ -1,8 +1,16 @@
 ﻿@model DnDApp.Models.AppUser
 @{
     ViewBag.Title = "LogInScreen";
+    var error = ViewBag.ErrorMessage;
 }
-
+@{
+    if (@error != null)
+    {
+        <script>
+            alert("@error");
+        </script>
+    }
+}
 <head>
     <title>Log in screen</title>
     <link href="~/Content/LogInScreen.css" rel="stylesheet" />

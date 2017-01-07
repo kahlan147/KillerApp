@@ -12,7 +12,8 @@ namespace DnDApp.Models
 
         public AppUser()
         {
-
+            this.UserName = "";
+            this.Password = "";
         }
 
         public AppUser(string UserName, string Password)

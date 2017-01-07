@@ -23,6 +23,7 @@ namespace DnDApp.Models
         public bool Prepared { get; set; }
         private string preparedString {get{if(Prepared == true){return "Prepared";}else{return "Unprepared";}}}
         public string Showable{get{return SpellName + ", " + preparedString;}}
+        public string Dice { get { { return NrOfDice.ToString() + "D" + DiceDamage.ToString(); } } }
 
         public Spell()
         {
@@ -57,6 +58,7 @@ namespace DnDApp.Models
             {
                 this.Custom = false;
             }
+            this.Prepared = false;
         }
     }
 }
