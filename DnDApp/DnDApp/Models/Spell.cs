@@ -20,6 +20,10 @@ namespace DnDApp.Models
         public string Duration { get; set; }
         public bool Custom { get; set; }
 
+        public bool Prepared { get; set; }
+        private string preparedString {get{if(Prepared == true){return "Prepared";}else{return "Unprepared";}}}
+        public string Showable{get{return SpellName + ", " + preparedString;}}
+
         public Spell()
         {
 
@@ -31,8 +35,16 @@ namespace DnDApp.Models
             this.SpellType = SpellData["SpellType"].ToString();
             this.Level = SpellData["Lvl"].ToString();
             this.SpellDescription = SpellData["SpellDescription"].ToString();
-            this.NumberOfDice = Convert.ToInt32(SpellData["NumberOfDice"].ToString());
-            this.DiceDamage = Convert.ToInt32(SpellData["DiceDamage"].ToString());
+            if (SpellData["NumberOfDice"] is DBNull) { }
+            else
+            {
+                this.NumberOfDice = Convert.ToInt32(SpellData["NumberOfDice"].ToString());
+            }
+            if (SpellData["DiceDamage"] is DBNull) { }
+            else
+            {
+                this.DiceDamage = Convert.ToInt32(SpellData["DiceDamage"].ToString());
+            }
             this.Components = SpellData["Components"].ToString();
             this.Range = SpellData["ASRange"].ToString();
             this.CastTime = SpellData["CastingTime"].ToString();

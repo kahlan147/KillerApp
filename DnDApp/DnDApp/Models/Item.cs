@@ -18,7 +18,7 @@ namespace DnDApp.Models
         public bool Custom { get; set; }
 
         public int Amount { get; set; }
-        public string NameAmount { get { return Amount.ToString() + ", " + Name; } }
+        public string Showable { get { return Amount.ToString() + ", " + Name; } }
 
         public Item(int id, string name, string description, bool isMagical, bool wearable, int nrOfDice, int diceDamage, bool custom)
         {

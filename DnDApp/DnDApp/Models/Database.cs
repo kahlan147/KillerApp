@@ -97,11 +97,51 @@ namespace DnDApp.Models
             return CharacterInfo.Rows[0];
         }
 
-        public static DataTable getInventory(int CharId)
+        public static Inventory getInventory(int CharId)
         {
-            string commandString = @"SELECT * FROM Inventory WHERE CharId = '" + CharId + "'";
-            DataTable Inventory = General(commandString);
-            return Inventory;
+            Inventory inventory = new Inventory();
+            string commandString = @"SELECT * FROM Inventory WHERE CharId = '" + CharId + "';";
+            DataTable InventoryTable = General(commandString);
+            foreach (DataRow InventoryRow in InventoryTable.Rows)
+            {
+                int ItemId = Convert.ToInt32(InventoryRow["ItemId"]);
+                int Amount = Convert.ToInt32(InventoryRow["Amount"]);
+                DataRow ItemRow = Database.getItem(ItemId);
+                Models.Item newItem = new Models.Item(ItemRow);
+                newItem.Amount = Amount;
+                inventory.MyItems.Add(newItem);
+            }
+            return inventory;
+        }
+
+        public static Spellbook getSpellbook(int CharId)
+        {
+            Spellbook spellbook = new Spellbook();
+            string commandString = @"SELECT * FROM Spellbook WHERE CharId = '" + CharId + "';";
+            DataTable spellbookTable = General(commandString);
+            foreach (DataRow spellbookRow in spellbookTable.Rows)
+            {
+                string SpellName = spellbookRow["SpellName"].ToString();
+                DataRow SpellRow = getSpell(SpellName);
+                Spell newSpell = new Spell(SpellRow);
+                if (spellbookRow["Prepared"].ToString() == "1")
+                {
+                    newSpell.Prepared = true;
+                }
+                else
+                {
+                    newSpell.Prepared = false;
+                }
+                spellbook.MySpells.Add(newSpell);
+            }
+            return spellbook;
+        }
+
+        public static DataRow getSpell(string SpellName)
+        {
+            string commandString = @"SELECT * FROM Spell WHERE SpellName = '" + SpellName + "';";
+            DataTable SpellList = General(commandString);
+            return SpellList.Rows[0];
         }
 
         public static DataRow getItem(int ItemId)
@@ -240,6 +280,18 @@ namespace DnDApp.Models
             return AllItems;
         }
 
+        public static List<Spell> getAllSpells()
+        {
+            List<Spell> SpellList = new List<Spell>();
+            string commandString = "SELECT * FROM Spell;";
+            DataTable result = General(commandString);
+            foreach(DataRow row in result.Rows){
+                Spell newSpell = new Spell(row);
+                SpellList.Add(newSpell);
+            }
+            return SpellList;
+        }
+
         public static void DeleteCharacter(Character character)
         {
             string commandString = @"execute DeleteCharacter " + character.CharId + ";";
@@ -322,9 +374,14 @@ namespace DnDApp.Models
         {
             if (spellbook.SelectedSpells.Count > 0 || spellbook.SelectedSpells.Count != null)
             {
+                int prepared = 0;
+                if (Prepared == true)
+                {
+                    prepared = 1;
+                }
                 foreach (string SpellName in spellbook.SelectedSpells)
                 {
-                    string commandString = @"UPDATE Spellbook SET Prepared = " + Prepared + " WHERE CharId = " + CharId + " AND SpellName = " + SpellName + ";";
+                    string commandString = @"UPDATE Spellbook SET Prepared = " + prepared + " WHERE CharId = " + CharId + " AND SpellName = " + SpellName + ";";
                     General(commandString);
                 }
             }

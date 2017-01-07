@@ -13,6 +13,7 @@ namespace DnDApp.Controllers
         //
         // GET: /DnD/
 
+        // /DnD/CharacterPage
         public ActionResult CharacterPage(int id)
         {
             Database.CharId = id;
@@ -39,30 +40,17 @@ namespace DnDApp.Controllers
             return View();
         }
 
+        // /DnD/Inventory
         public ActionResult Inventory()
         {
-            Database.CharId = 2;
-            Database.LoggedUser = "Niels";
             if (Database.AllowedToBeHere("high"))
             {
                 int CharId = Database.CharId;
-                List<Item> MyItems = new List<Item>();
                 Inventory inventory = new Inventory();
-                DataTable InventoryTable = Database.getInventory(CharId);
-                foreach (DataRow InventoryRow in InventoryTable.Rows)
-                {
-                    int ItemId = Convert.ToInt32(InventoryRow["ItemId"]);
-                    int Amount = Convert.ToInt32(InventoryRow["Amount"]);
-                    DataRow ItemRow = Database.getItem(ItemId);
-                    Models.Item newItem = new Models.Item(ItemRow);
-                    newItem.Amount = Amount;
-                    MyItems.Add(newItem);
-                }
-                inventory.MyItems = MyItems;
+                inventory = Database.getInventory(CharId);
                 List<Item> AllItems = Database.getAllItems();
                 ViewBag.Inventory = inventory;
                 ViewBag.AllItems = AllItems;
-                ViewBag.Test = "Yolo";
                 return View();
             }
             else
@@ -93,17 +81,45 @@ namespace DnDApp.Controllers
                 return RedirectToAction("Inventory", "DnD");
         }
 
+        // /DnD/Spellbook
         public ActionResult Spellbook()
         {
             if(Database.AllowedToBeHere("high"))
             {
-            return View();
+                int charId = Database.CharId;
+                ViewBag.MySpellBook = Database.getSpellbook(charId);
+                ViewBag.AllSpells = Database.getAllSpells();
+                return View();
             }
             else{
                 return RedirectToAction("CharacterSelect", "MainMenu");
             }
         }
 
+        [HttpPost]
+        public ActionResult Spellbook(Spellbook newspellBook, string command)
+        {
+            if (command.Equals("Remove"))
+            {
+                Database.RemoveSpells(newspellBook);
+            }
+            else if (command.Equals("Add"))
+            {
+                Database.AddSpells(newspellBook);
+            }
+            else if (command.Equals("Prepare"))
+            {
+                Database.PrepareSpells(newspellBook, true);
+            }
+            else if (command.Equals("Unprepare"))
+            {
+                Database.PrepareSpells(newspellBook, false);
+            }
+
+            return RedirectToAction("Spellbook", "Dnd");
+        }
+
+        // /DnD/CreateNewChar
         public ActionResult CreateNewChar()
         {
             if (Database.AllowedToBeHere("low"))
@@ -125,6 +141,7 @@ namespace DnDApp.Controllers
             return RedirectToAction("CharacterSelect", "MainMenu");
         }
 
+        // /DnD/DeleteCharacter
         public ActionResult DeleteCharacter(int id)
         {
             if (Database.AllowedToBeHere("low"))

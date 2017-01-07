@@ -14,7 +14,9 @@ namespace DnDApp.Models
 
         public Inventory()
         {
-
+            MyItems = new List<Item>();
+            SelectedItems = new List<string>();
+            ToBeAddedItems = new List<string>();
         }
     }
 }

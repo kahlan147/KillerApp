@@ -13,7 +13,9 @@ namespace DnDApp.Models
 
         public Spellbook()
         {
-
+            MySpells = new List<Spell>();
+            SelectedSpells = new List<string>();
+            ToBeAddedSpells = new List<string>();
         }
     }
 }
