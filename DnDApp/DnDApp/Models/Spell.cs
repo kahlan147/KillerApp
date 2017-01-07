@@ -12,7 +12,7 @@ namespace DnDApp.Models
         public string SpellType { get; set; }
         public string Level { get; set; }
         public string SpellDescription { get; set; }
-        public int NumberOfDice { get; set; }
+        public int NrOfDice { get; set; }
         public int DiceDamage { get; set; }
         public string Components { get; set; }
         public string Range { get; set; }
@@ -38,7 +38,7 @@ namespace DnDApp.Models
             if (SpellData["NumberOfDice"] is DBNull) { }
             else
             {
-                this.NumberOfDice = Convert.ToInt32(SpellData["NumberOfDice"].ToString());
+                this.NrOfDice = Convert.ToInt32(SpellData["NumberOfDice"].ToString());
             }
             if (SpellData["DiceDamage"] is DBNull) { }
             else

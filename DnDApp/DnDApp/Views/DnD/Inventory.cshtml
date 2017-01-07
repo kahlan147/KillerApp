@@ -20,11 +20,17 @@
         <h3>All items</h3>
         @Html.ListBoxFor(u=> u.ToBeAddedItems, new MultiSelectList(AllItems, "Id", "Name" ), new {@Id="AllItemsBox", @Class="resizetest", size=50})
             <input type="submit" name="command" value="Add" id="AddButton"/>
+            <input type="submit" name="command" value="More info" id="MoreInfoButton" />
     </div>
     <div id="Buttons">
-        <input type="submit" name="command" value="Increase" />
-        <input type="submit" name="command" value="Decrease" />
+        <input type="submit" name="command" value="Increase +1" />
+        <input type="submit" name="command" value="Increase +10" />
+        <input type="submit" name="command" value="Increase +20" />
+        <input type="submit" name="command" value="Decrease -1" />
+        <input type="submit" name="command" value="Decrease -10" />
+        <input type="submit" name="command" value="Decrease -20" />
         <input type="submit" name="command" value="Remove" />
+        <input type="submit" name="command" value="More Info" />
     </div>   
     }
 </div>

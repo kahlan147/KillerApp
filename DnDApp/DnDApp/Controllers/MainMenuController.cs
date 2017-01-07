@@ -13,6 +13,8 @@ namespace DnDApp.Controllers
         // GET: /MainMenu/
         public ActionResult CharacterSelect()
         {
+            Database.MoreInfoItemId = 0;
+            Database.MoreInfoSpell = null;
             Database.CharId = -1;
             if (Database.AllowedToBeHere("low"))
             {

@@ -249,6 +249,7 @@
     <Content Include="Views\MainMenu\CharacterSelect.cshtml" />
     <Content Include="Views\DnD\CreateNewChar.cshtml" />
     <Content Include="Views\DnD\DeleteCharacter.cshtml" />
+    <Content Include="Views\DnD\MoreInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

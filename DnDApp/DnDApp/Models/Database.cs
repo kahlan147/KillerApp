@@ -13,6 +13,8 @@ namespace DnDApp.Models
         public static int CharId { get; set; }
         public static string LoggedUser { get; set; }
         public static Character currentCharacter { get; set; }
+        public static int MoreInfoItemId { get; set; }
+        public static string MoreInfoSpell { get; set; }
 
         private static string Connection
         {
@@ -298,9 +300,9 @@ namespace DnDApp.Models
             DataTable empty = General(commandString);
         }
 
-        public static void IncDecItemInv(Inventory inventory, bool IncDec)
+        public static void IncDecItemInv(Inventory inventory, bool IncDec, int amount)
         {
-            if (inventory.SelectedItems.Count > 0 || inventory.SelectedItems.Count != null)
+            if (inventory.SelectedItems.Count > 0)
             {
                 string commandString;
                 string IncreaseOrDecrease = "+";
@@ -312,10 +314,10 @@ namespace DnDApp.Models
                 {
                     IncreaseOrDecrease = "-";
                 }
-                foreach (string item in inventory.SelectedItems)
+                foreach (int item in inventory.SelectedItems)
                 {
                     commandString = @"UPDATE Inventory
-                                SET Amount = (SELECT Amount FROM Inventory WHERE CharId = " + CharId + " AND ItemId = " + item + ") " + IncreaseOrDecrease + "1" +
+                                SET Amount = (SELECT Amount FROM Inventory WHERE CharId = " + CharId + " AND ItemId = " + item + ") " + IncreaseOrDecrease + amount +
                                     "WHERE CharId =  " + CharId + "  AND ItemId = " + item + ";";
                     General(commandString);
                 }
@@ -324,9 +326,9 @@ namespace DnDApp.Models
 
         public static void AddItems(Inventory inventory)
         {
-            if (inventory.ToBeAddedItems.Count > 0 || inventory.ToBeAddedItems.Count != null)
+            if (inventory.ToBeAddedItems.Count > 0)
             {
-                foreach (string itemId in inventory.ToBeAddedItems)
+                foreach (int itemId in inventory.ToBeAddedItems)
                 {
                     string commandString = @"INSERT INTO Inventory VALUES (" + CharId + ", " + itemId + ",1 , 0);";
                     General(commandString);
@@ -336,9 +338,9 @@ namespace DnDApp.Models
 
         public static void RemoveItems(Inventory inventory)
         {
-            if (inventory.SelectedItems.Count > 0 || inventory.SelectedItems.Count != null)
+            if (inventory.SelectedItems.Count > 0)
             {
-                foreach (string itemId in inventory.SelectedItems)
+                foreach (int itemId in inventory.SelectedItems)
                 {
                     string commandString = @"DELETE FROM Inventory WHERE CharId = " + CharId + " AND ItemId = " + itemId + ";";
                     General(commandString);
@@ -348,11 +350,11 @@ namespace DnDApp.Models
 
         public static void AddSpells(Spellbook spellbook)
         {
-            if (spellbook.ToBeAddedSpells.Count > 0 || spellbook.ToBeAddedSpells.Count != null)
+            if (spellbook.ToBeAddedSpells.Count > 0)
             {
                 foreach (string SpellName in spellbook.ToBeAddedSpells)
                 {
-                    string commandString = @"INSERT INTO Spellbook VALUES (" + CharId + ", " + SpellName + ", 0);";
+                    string commandString = @"INSERT INTO Spellbook VALUES (" + CharId + ", '" + SpellName + "', 0);";
                     General(commandString);
                 }
             }
@@ -360,11 +362,11 @@ namespace DnDApp.Models
 
         public static void RemoveSpells(Spellbook spellbook)
         {
-            if (spellbook.SelectedSpells.Count > 0 || spellbook.SelectedSpells.Count != null)
+            if (spellbook.SelectedSpells.Count > 0)
             {
                 foreach (string SpellName in spellbook.SelectedSpells)
                 {
-                    string commandString = @"DELETE FROM Spellbook WHERE CharId = " + CharId + " AND SpellName = " + SpellName + ";";
+                    string commandString = @"DELETE FROM Spellbook WHERE CharId = " + CharId + " AND SpellName = '" + SpellName + "';";
                     General(commandString);
                 }
             }
@@ -372,7 +374,7 @@ namespace DnDApp.Models
 
         public static void PrepareSpells(Spellbook spellbook, bool Prepared)
         {
-            if (spellbook.SelectedSpells.Count > 0 || spellbook.SelectedSpells.Count != null)
+            if (spellbook.SelectedSpells.Count > 0)
             {
                 int prepared = 0;
                 if (Prepared == true)
@@ -381,7 +383,7 @@ namespace DnDApp.Models
                 }
                 foreach (string SpellName in spellbook.SelectedSpells)
                 {
-                    string commandString = @"UPDATE Spellbook SET Prepared = " + prepared + " WHERE CharId = " + CharId + " AND SpellName = " + SpellName + ";";
+                    string commandString = @"UPDATE Spellbook SET Prepared = " + prepared + " WHERE CharId = " + CharId + " AND SpellName = '" + SpellName + "';";
                     General(commandString);
                 }
             }

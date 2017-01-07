@@ -1,5 +1,5 @@
 ﻿
-@model DnDApp.Models.Inventory
+@model DnDApp.Models.Spellbook
 
 @{
     ViewBag.Title = "Spellbook";
@@ -12,10 +12,18 @@
     {
         <img src="~/Resources/Scroll2.jpg" id="Img_scroll">
         <div id="MySpellBook">
-            @Html.ListBoxFor(u => u.SelectedItems, new MultiSelectList(MySpellBook.MySpells, "SpellName", "Showable"), new { size = 40 })
+            @Html.ListBoxFor(u => u.SelectedSpells, new MultiSelectList(MySpellBook.MySpells, "SpellName", "Showable"), new { size = 40 })
         </div>
         <div>
-            @Html.ListBoxFor(u => u.ToBeAddedItems, new MultiSelectList(AllSpells, "SpellName", "SpellName"), new{size=50})
+            @Html.ListBoxFor(u => u.ToBeAddedSpells, new MultiSelectList(AllSpells, "SpellName", "SpellName"), new{size=50})
+            <input type="submit" name="command" value="More info" />
+            <input type="submit" name="command" value="Add" />
+        </div>
+        <div>
+            <input type="submit" name="command" value="More Info" />
+            <input type="submit" name="command" value="Remove" />
+            <input type="submit" name="command" value="Prepare" />
+            <input type="submit" name="command" value="Unprepare" />
         </div>
     }
 </div>

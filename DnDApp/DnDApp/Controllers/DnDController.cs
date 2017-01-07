@@ -16,6 +16,8 @@ namespace DnDApp.Controllers
         // /DnD/CharacterPage
         public ActionResult CharacterPage(int id)
         {
+            Database.MoreInfoSpell = null;
+            Database.MoreInfoItemId = 0;
             Database.CharId = id;
             if(Database.AllowedToBeHere("high")){
                 Models.Character character = new Models.Character(Database.GetCharacter(id), Database.GetCharacterInfo(id));
@@ -45,6 +47,7 @@ namespace DnDApp.Controllers
         {
             if (Database.AllowedToBeHere("high"))
             {
+                Database.MoreInfoSpell = null;
                 int CharId = Database.CharId;
                 Inventory inventory = new Inventory();
                 inventory = Database.getInventory(CharId);
@@ -62,13 +65,29 @@ namespace DnDApp.Controllers
         public ActionResult Inventory(Inventory newinventory, string command)
         {
             
-            if (command.Equals("Increase"))
+            if (command.Equals("Increase +1"))
             {
-                Database.IncDecItemInv(newinventory, true);
+                Database.IncDecItemInv(newinventory, true, 1);
             }
-            else if (command.Equals("Decrease"))
+            else if (command.Equals("Increase +10"))
             {
-                Database.IncDecItemInv(newinventory, false);
+                Database.IncDecItemInv(newinventory, true, 10);
+            }
+            else if (command.Equals("Increase +20"))
+            {
+                Database.IncDecItemInv(newinventory, true, 20);
+            }
+            else if (command.Equals("Decrease -1"))
+            {
+                Database.IncDecItemInv(newinventory, false, 1);
+            }
+            else if (command.Equals("Decrease -10"))
+            {
+                Database.IncDecItemInv(newinventory, false, 10);
+            }
+            else if (command.Equals("Decrease -20"))
+            {
+                Database.IncDecItemInv(newinventory, false, 20);
             }
             else if (command.Equals("Remove"))
             {
@@ -78,6 +97,21 @@ namespace DnDApp.Controllers
             {
                 Database.AddItems(newinventory);
             }
+            else if (command.Equals("More info"))
+            {
+                if (newinventory.ToBeAddedItems.Count > 0)
+                {
+                    Database.MoreInfoItemId = newinventory.ToBeAddedItems[0];
+                    return RedirectToAction("MoreInfo", "DnD");
+                }
+            }
+            else if (command.Equals("More Info"))
+            {
+                if(newinventory.SelectedItems.Count > 0){
+                Database.MoreInfoItemId = newinventory.SelectedItems[0];
+                return RedirectToAction("MoreInfo", "DnD");
+                }
+            }
                 return RedirectToAction("Inventory", "DnD");
         }
 
@@ -86,6 +120,7 @@ namespace DnDApp.Controllers
         {
             if(Database.AllowedToBeHere("high"))
             {
+                Database.MoreInfoItemId = 0;
                 int charId = Database.CharId;
                 ViewBag.MySpellBook = Database.getSpellbook(charId);
                 ViewBag.AllSpells = Database.getAllSpells();
@@ -114,6 +149,22 @@ namespace DnDApp.Controllers
             else if (command.Equals("Unprepare"))
             {
                 Database.PrepareSpells(newspellBook, false);
+            }
+            else if (command.Equals("More info"))
+            {
+                if (newspellBook.ToBeAddedSpells.Count > 0)
+                {
+                    Database.MoreInfoSpell = newspellBook.ToBeAddedSpells[0];
+                    return RedirectToAction("MoreInfo", "DnD");
+                }
+            }
+            else if (command.Equals("More Info"))
+            {
+                if (newspellBook.SelectedSpells.Count > 0)
+                {
+                    Database.MoreInfoSpell = newspellBook.SelectedSpells[0];
+                    return RedirectToAction("MoreInfo", "DnD");
+                }
             }
 
             return RedirectToAction("Spellbook", "Dnd");
@@ -163,6 +214,33 @@ namespace DnDApp.Controllers
         {
             Database.DeleteCharacter(character);
             return RedirectToAction("CharacterSelect", "MainMenu");
+        }
+
+        // /DnD/MoreInfo
+        public ActionResult MoreInfo()
+        {
+            if (Database.MoreInfoSpell == null && Database.MoreInfoItemId != 0)
+            {
+                int id = Database.MoreInfoItemId;
+                DataRow ItemRow = Database.getItem(id);
+                Item newItem = new Item(ItemRow);
+                ViewBag.Object = newItem;
+                ViewBag.SpellOrItem = "Item";
+                return View();
+            }
+            else if (Database.MoreInfoSpell != null && Database.MoreInfoItemId == 0)
+            {
+                string name = Database.MoreInfoSpell;
+                DataRow SpellRow = Database.getSpell(name);
+                Spell newSpell = new Spell(SpellRow);
+                ViewBag.Object = SpellRow;
+                ViewBag.SpellOrItem = "Spell";
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("CharacterSelect", "MainMenu");
+            }
         }
 	}
 }

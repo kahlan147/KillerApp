@@ -1,0 +1,34 @@
+﻿
+@{
+    ViewBag.Title = "MoreInfo";
+    var Object = ViewBag.Object;
+    var SpellOrItem = ViewBag.SpellOrItem;
+    var dice = Object.NrOfDice + "D" + Object.DiceDamage;
+}
+
+<div>
+    @using (Html.BeginForm())
+    {
+        if (SpellOrItem == "Spell")
+        {
+            <p>Name: <input type="text" value="@Object.SpellName" /></p>
+            <p>Spell type: <input type="text" value="@Object.SpellType" /></p>
+            <p>Level: <input type="text" value="@Object.Level" /></p>
+            <p>Description: <input type="text" value="@Object.SpellDescription" /></p>
+            <p>Damage: <input type="text" value="@dice" /></p>
+            <p>Components: <input type="checkbox" value="@Object.Components" /></p>
+            <p>Range: <input type="checkbox" value="@Object.Range" /></p>
+            <p>Cast time:<input type="text" value="Object.CastTime" /></p>
+            <p>Duration: <input type="text" value="Object.Duration" /></p>
+        }
+        else if(SpellOrItem == "Item")
+        {
+            <p>Name: <input type="text" value="@Object.Name" /></p>
+            <p>Description: <input type="text" value="@Object.Description" /></p>
+            <p>Damage: <input type="text" value="@dice" /></p>
+            <p>Is magical: <input type="checkbox" value="@Object.IsMagical" /></p>
+            <p>Is Wearable: <input type="checkbox" value="@Object.Wearable" /></p>
+        }
+    }
+</div>
+
