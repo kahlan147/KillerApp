@@ -99,7 +99,7 @@ namespace DnDApp.Models
             return CharacterInfo.Rows[0];
         }
 
-        public static Inventory getInventory(int CharId)
+        public static Inventory getInventory()
         {
             Inventory inventory = new Inventory();
             string commandString = @"SELECT * FROM Inventory WHERE CharId = '" + CharId + "';";
@@ -388,6 +388,23 @@ namespace DnDApp.Models
                     General(commandString);
                 }
             }
+        }
+
+        public static MoneyPouch GetMoneyPouch()
+        {
+            string commandString = @"SELECT * FROM MoneyPouch WHERE CharId=" + CharId + ";";
+            DataTable result = General(commandString);
+            MoneyPouch myMoneyPouch = new MoneyPouch(result.Rows[0]);
+            return myMoneyPouch;
+        }
+
+        public static void UpdateMoneyPouch(MoneyPouch updatedMoneyPouch)
+        {
+            string commandString = @"UPDATE MoneyPouch
+            SET Coin_Platinum = " + updatedMoneyPouch.Platinum + ",Coin_Gold = " +
+            updatedMoneyPouch.Gold + ",Coin_Silver = " + updatedMoneyPouch.Silver + ",Coin_Copper = " +
+            updatedMoneyPouch.Copper + " WHERE CharId = " + CharId + ";";
+            General(commandString);
         }
     }
 }

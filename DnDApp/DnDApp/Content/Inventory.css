@@ -63,23 +63,33 @@
 #MoneyPouch{
     position:absolute;
     border-style:solid;
+    top:155px;
+    width:150px;
+    height:145px;
+    left:800px;
+    padding-top:5px;
+    padding-left:5px;
 }
 
 .tbMoneyPouch{
     position:absolute;
-    left: 25px;
+    width:50px;
+    left:75px;
+    max-height:20px;
 }
 
 #SaveButton{
-
+    position:absolute;
+    left:10px;
+    top:100px
 }
 
 #Buttons{
     position: absolute;
     left: 800px;
     width:250px;
-    top:155px;
-    height:630px;
+    top:300px;
+    height:485px;
 }
 
 .MyInvBt{

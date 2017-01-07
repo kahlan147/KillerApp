@@ -49,9 +49,9 @@ namespace DnDApp.Controllers
             {
                 Database.MoreInfoSpell = null;
                 int CharId = Database.CharId;
-                Inventory inventory = new Inventory();
-                inventory = Database.getInventory(CharId);
                 List<Item> AllItems = Database.getAllItems();
+                Inventory inventory = Database.getInventory();
+                inventory.moneyPouch = Database.GetMoneyPouch();
                 ViewBag.Inventory = inventory;
                 ViewBag.AllItems = AllItems;
                 return View();
@@ -78,7 +78,9 @@ namespace DnDApp.Controllers
                 {
                     ViewBag.ErrorMessage = messageSelected;
                     ViewBag.AllItems = Database.getAllItems();
-                    ViewBag.Inventory = Database.getInventory(CharId);
+                    Inventory inventory = Database.getInventory();
+                    inventory.moneyPouch = Database.GetMoneyPouch();
+                    ViewBag.Inventory = inventory;
                     return View();
                 }
             }
@@ -92,7 +94,9 @@ namespace DnDApp.Controllers
                 {
                     ViewBag.ErrorMessage = messageSelected;
                     ViewBag.AllItems = Database.getAllItems();
-                    ViewBag.Inventory = Database.getInventory(CharId);
+                    Inventory inventory = Database.getInventory();
+                    inventory.moneyPouch = Database.GetMoneyPouch();
+                    ViewBag.Inventory = inventory;
                     return View();
                 }
             }
@@ -106,7 +110,9 @@ namespace DnDApp.Controllers
                 {
                     ViewBag.ErrorMessage = messageSelected;
                     ViewBag.AllItems = Database.getAllItems();
-                    ViewBag.Inventory = Database.getInventory(CharId);
+                    Inventory inventory = Database.getInventory();
+                    inventory.moneyPouch = Database.GetMoneyPouch();
+                    ViewBag.Inventory = inventory;
                     return View();
                 }
             }
@@ -120,7 +126,9 @@ namespace DnDApp.Controllers
                 {
                     ViewBag.ErrorMessage = messageSelected;
                     ViewBag.AllItems = Database.getAllItems();
-                    ViewBag.Inventory = Database.getInventory(CharId);
+                    Inventory inventory = Database.getInventory();
+                    inventory.moneyPouch = Database.GetMoneyPouch();
+                    ViewBag.Inventory = inventory;
                     return View();
                 }
             }
@@ -134,7 +142,9 @@ namespace DnDApp.Controllers
                 {
                     ViewBag.ErrorMessage = messageSelected;
                     ViewBag.AllItems = Database.getAllItems();
-                    ViewBag.Inventory = Database.getInventory(CharId);
+                    Inventory inventory = Database.getInventory();
+                    inventory.moneyPouch = Database.GetMoneyPouch();
+                    ViewBag.Inventory = inventory;
                     return View();
                 }
             }
@@ -148,7 +158,9 @@ namespace DnDApp.Controllers
                 {
                     ViewBag.ErrorMessage = messageSelected;
                     ViewBag.AllItems = Database.getAllItems();
-                    ViewBag.Inventory = Database.getInventory(CharId);
+                    Inventory inventory = Database.getInventory();
+                    inventory.moneyPouch = Database.GetMoneyPouch();
+                    ViewBag.Inventory = inventory;
                     return View();
                 }
             }
@@ -162,7 +174,9 @@ namespace DnDApp.Controllers
                 {
                     ViewBag.ErrorMessage = messageSelected;
                     ViewBag.AllItems = Database.getAllItems();
-                    ViewBag.Inventory = Database.getInventory(CharId);
+                    Inventory inventory = Database.getInventory();
+                    inventory.moneyPouch = Database.GetMoneyPouch();
+                    ViewBag.Inventory = inventory;
                     return View();
                 }
             }
@@ -176,7 +190,9 @@ namespace DnDApp.Controllers
                 {
                     ViewBag.ErrorMessage = messageAdded;
                     ViewBag.AllItems = Database.getAllItems();
-                    ViewBag.Inventory = Database.getInventory(CharId);
+                    Inventory inventory = Database.getInventory();
+                    inventory.moneyPouch = Database.GetMoneyPouch();
+                    ViewBag.Inventory = inventory;
                     return View();
                 }
             }
@@ -194,7 +210,9 @@ namespace DnDApp.Controllers
                 {
                     ViewBag.ErrorMessage = messageAdded;
                     ViewBag.AllItems = Database.getAllItems();
-                    ViewBag.Inventory = Database.getInventory(CharId);
+                    Inventory inventory = Database.getInventory();
+                    inventory.moneyPouch = Database.GetMoneyPouch();
+                    ViewBag.Inventory = inventory;
                     return View();
                 }
             }
@@ -211,9 +229,14 @@ namespace DnDApp.Controllers
                 {
                     ViewBag.ErrorMessage = messageSelected;
                     ViewBag.AllItems = Database.getAllItems();
-                    ViewBag.Inventory = Database.getInventory(CharId);
+                    Inventory inventory = Database.getInventory();
+                    inventory.moneyPouch = Database.GetMoneyPouch();
+                    ViewBag.Inventory = inventory;
                     return View();
                 }
+            }
+            else if(command.Equals("Save")){
+                Database.UpdateMoneyPouch(newinventory.moneyPouch);
             }
                 return RedirectToAction("Inventory", "DnD");
         }
