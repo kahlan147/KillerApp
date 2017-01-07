@@ -21,6 +21,7 @@
             <p>Range: <input type="text" value="@Object.Range" /></p>
             <p>Cast time:<input type="text" value="@Object.CastTime" /></p>
             <p>Duration: <input type="text" value="@Object.Duration" /></p>
+            <input type="button" value="Back" class="backbutton" onclick="window.location.href='/DnD/Spellbook';" />
         }
         else if(SpellOrItem == "Item")
         {
@@ -29,6 +30,7 @@
             <p>Damage: <input type="text" value="@Object.Dice" /></p>
             <p>Is magical: <input type="checkbox" value="@Object.IsMagical" /></p>
             <p>Is Wearable: <input type="checkbox" value="@Object.Wearable" /></p>
+            <input type="button" value="Back" class="backbutton" onclick="window.location.href='/DnD/Inventory';" />
         }
     }
 </div>

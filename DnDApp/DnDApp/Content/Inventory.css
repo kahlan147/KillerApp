@@ -60,6 +60,20 @@
     width:150px;
 }
 
+#MoneyPouch{
+    position:absolute;
+    border-style:solid;
+}
+
+.tbMoneyPouch{
+    position:absolute;
+    left: 25px;
+}
+
+#SaveButton{
+
+}
+
 #Buttons{
     position: absolute;
     left: 800px;

@@ -61,55 +61,158 @@ namespace DnDApp.Controllers
                 return RedirectToAction("CharacterSelect", "MainMenu");
             }
         }
+
         [HttpPost]
         public ActionResult Inventory(Inventory newinventory, string command)
         {
-            
+            int CharId = Database.CharId;
+            string messageSelected = "Please choose atleast one item from your inventory first";
+            string messageAdded = "Please choose atleast one item from the all items box";
             if (command.Equals("Increase +1"))
             {
-                Database.IncDecItemInv(newinventory, true, 1);
+                if (newinventory.IsSelected())
+                {
+                    Database.IncDecItemInv(newinventory, true, 1);
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = messageSelected;
+                    ViewBag.AllItems = Database.getAllItems();
+                    ViewBag.Inventory = Database.getInventory(CharId);
+                    return View();
+                }
             }
             else if (command.Equals("Increase +10"))
             {
+                if (newinventory.IsSelected())
+                {
                 Database.IncDecItemInv(newinventory, true, 10);
+                    }
+                else
+                {
+                    ViewBag.ErrorMessage = messageSelected;
+                    ViewBag.AllItems = Database.getAllItems();
+                    ViewBag.Inventory = Database.getInventory(CharId);
+                    return View();
+                }
             }
             else if (command.Equals("Increase +20"))
             {
+                if (newinventory.IsSelected())
+                {
                 Database.IncDecItemInv(newinventory, true, 20);
+                    }
+                else
+                {
+                    ViewBag.ErrorMessage = messageSelected;
+                    ViewBag.AllItems = Database.getAllItems();
+                    ViewBag.Inventory = Database.getInventory(CharId);
+                    return View();
+                }
             }
             else if (command.Equals("Decrease -1"))
             {
+                if (newinventory.IsSelected())
+                {
                 Database.IncDecItemInv(newinventory, false, 1);
+                    }
+                else
+                {
+                    ViewBag.ErrorMessage = messageSelected;
+                    ViewBag.AllItems = Database.getAllItems();
+                    ViewBag.Inventory = Database.getInventory(CharId);
+                    return View();
+                }
             }
             else if (command.Equals("Decrease -10"))
             {
+                if (newinventory.IsSelected())
+                {
                 Database.IncDecItemInv(newinventory, false, 10);
+                    }
+                else
+                {
+                    ViewBag.ErrorMessage = messageSelected;
+                    ViewBag.AllItems = Database.getAllItems();
+                    ViewBag.Inventory = Database.getInventory(CharId);
+                    return View();
+                }
             }
             else if (command.Equals("Decrease -20"))
             {
+                if (newinventory.IsSelected())
+                {
                 Database.IncDecItemInv(newinventory, false, 20);
+                    }
+                else
+                {
+                    ViewBag.ErrorMessage = messageSelected;
+                    ViewBag.AllItems = Database.getAllItems();
+                    ViewBag.Inventory = Database.getInventory(CharId);
+                    return View();
+                }
             }
             else if (command.Equals("Remove"))
             {
+                if (newinventory.IsSelected())
+                {
                 Database.RemoveItems(newinventory);
+                    }
+                else
+                {
+                    ViewBag.ErrorMessage = messageSelected;
+                    ViewBag.AllItems = Database.getAllItems();
+                    ViewBag.Inventory = Database.getInventory(CharId);
+                    return View();
+                }
             }
             else if (command.Equals("Add"))
             {
-                Database.AddItems(newinventory);
+                if (newinventory.IsAddedSelected())
+                {
+                    Database.AddItems(newinventory);
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = messageAdded;
+                    ViewBag.AllItems = Database.getAllItems();
+                    ViewBag.Inventory = Database.getInventory(CharId);
+                    return View();
+                }
             }
             else if (command.Equals("More info"))
             {
-                if (newinventory.ToBeAddedItems.Count > 0)
+                if (newinventory.IsAddedSelected())
                 {
-                    Database.MoreInfoItemId = newinventory.ToBeAddedItems[0];
-                    return RedirectToAction("MoreInfo", "DnD");
+                    if (newinventory.ToBeAddedItems.Count > 0)
+                    {
+                        Database.MoreInfoItemId = newinventory.ToBeAddedItems[0];
+                        return RedirectToAction("MoreInfo", "DnD");
+                    }
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = messageAdded;
+                    ViewBag.AllItems = Database.getAllItems();
+                    ViewBag.Inventory = Database.getInventory(CharId);
+                    return View();
                 }
             }
             else if (command.Equals("More Info"))
             {
-                if(newinventory.SelectedItems.Count > 0){
-                Database.MoreInfoItemId = newinventory.SelectedItems[0];
-                return RedirectToAction("MoreInfo", "DnD");
+                if (newinventory.IsSelected())
+                {
+                    if(newinventory.SelectedItems.Count > 0){
+                        Database.MoreInfoItemId = newinventory.SelectedItems[0];
+                        return RedirectToAction("MoreInfo", "DnD");
+                    }
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = messageSelected;
+                    ViewBag.AllItems = Database.getAllItems();
+                    ViewBag.Inventory = Database.getInventory(CharId);
+                    return View();
                 }
             }
                 return RedirectToAction("Inventory", "DnD");
@@ -134,36 +237,95 @@ namespace DnDApp.Controllers
         [HttpPost]
         public ActionResult Spellbook(Spellbook newspellBook, string command)
         {
+            int CharId = Database.CharId;
+            string messageSelected = "Please choose atleast one item from your inventory first";
+            string messageAdded = "Please choose atleast one item from the all items box";
+            
+
             if (command.Equals("Remove"))
             {
-                Database.RemoveSpells(newspellBook);
+                if (newspellBook.IsSelected())
+                {
+                    Database.RemoveSpells(newspellBook);
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = messageSelected;
+                    ViewBag.AllSpells = Database.getAllSpells();
+                    ViewBag.MySpellBook = Database.getSpellbook(CharId);
+                    return View();
+                }
             }
             else if (command.Equals("Add"))
             {
-                Database.AddSpells(newspellBook);
+                if (newspellBook.IsAddedSelected())
+                {
+                    Database.AddSpells(newspellBook);
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = messageAdded;
+                    ViewBag.AllSpells = Database.getAllSpells();
+                    ViewBag.MySpellBook = Database.getSpellbook(CharId);
+                    return View();
+                }
             }
             else if (command.Equals("Prepare"))
             {
-                Database.PrepareSpells(newspellBook, true);
+                if (newspellBook.IsSelected())
+                {
+                    Database.PrepareSpells(newspellBook, true);
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = messageSelected;
+                    ViewBag.AllSpells = Database.getAllSpells();
+                    ViewBag.MySpellBook = Database.getSpellbook(CharId);
+                    return View();
+                }
             }
             else if (command.Equals("Unprepare"))
             {
-                Database.PrepareSpells(newspellBook, false);
+                if (newspellBook.IsSelected())
+                {
+                    Database.PrepareSpells(newspellBook, false);
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = messageSelected;
+                    ViewBag.AllSpells = Database.getAllSpells();
+                    ViewBag.MySpellBook = Database.getSpellbook(CharId);
+                    return View();
+                }
             }
             else if (command.Equals("More info"))
             {
-                if (newspellBook.ToBeAddedSpells.Count > 0)
+                if (newspellBook.IsAddedSelected())
                 {
                     Database.MoreInfoSpell = newspellBook.ToBeAddedSpells[0];
                     return RedirectToAction("MoreInfo", "DnD");
                 }
+                else
+                {
+                    ViewBag.ErrorMessage = messageAdded;
+                    ViewBag.AllSpells = Database.getAllSpells();
+                    ViewBag.MySpellBook = Database.getSpellbook(CharId);
+                    return View();
+                }
             }
             else if (command.Equals("More Info"))
             {
-                if (newspellBook.SelectedSpells.Count > 0)
+                if (newspellBook.IsSelected())
                 {
                     Database.MoreInfoSpell = newspellBook.SelectedSpells[0];
                     return RedirectToAction("MoreInfo", "DnD");
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = messageSelected;
+                    ViewBag.AllSpells = Database.getAllSpells();
+                    ViewBag.MySpellBook = Database.getSpellbook(CharId);
+                    return View();
                 }
             }
 

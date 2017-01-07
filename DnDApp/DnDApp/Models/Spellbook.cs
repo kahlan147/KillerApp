@@ -17,5 +17,23 @@ namespace DnDApp.Models
             SelectedSpells = new List<string>();
             ToBeAddedSpells = new List<string>();
         }
+
+        public bool IsSelected()
+        {
+            if (this.SelectedSpells.Count <= 0)
+            {
+                return false;
+            }
+            else { return true; }
+        }
+
+        public bool IsAddedSelected()
+        {
+            if (this.ToBeAddedSpells.Count <= 0)
+            {
+                return false;
+            }
+            else { return true; }
+        }
     }
 }

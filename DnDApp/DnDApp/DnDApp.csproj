@@ -175,6 +175,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Inventory.cs" />
     <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\MoneyPouch.cs" />
     <Compile Include="Models\Spell.cs" />
     <Compile Include="Models\Spellbook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -201,7 +202,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\Inventory.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -244,7 +244,6 @@
     <Content Include="Views\DnD\CharacterPage.cshtml" />
     <Content Include="Views\DnD\Inventory.cshtml" />
     <Content Include="Views\DnD\Spellbook.cshtml" />
-    <Content Include="Views\DnD\SaveCharData.cshtml" />
     <Content Include="Views\LogIn\LogInScreen.cshtml" />
     <Content Include="Views\LogIn\Register.cshtml" />
     <Content Include="Views\MainMenu\CharacterSelect.cshtml" />

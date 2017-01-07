@@ -5,6 +5,16 @@
     ViewBag.Title = "Spellbook";
     var AllSpells = @ViewBag.AllSpells;
     var MySpellBook = @ViewBag.MySpellBook;
+    var error = ViewBag.ErrorMessage;
+}
+
+@{
+    if (@error != null)
+    {
+        <script>
+            alert("@error");
+        </script>
+    }
 }
 
 <link href="~/Content/Inventory.css" rel="stylesheet" />

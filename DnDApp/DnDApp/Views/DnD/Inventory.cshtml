@@ -5,10 +5,19 @@
     ViewBag.Title = "Inventory";
     var AllItems = @ViewBag.AllItems;
     var Inventory = @ViewBag.Inventory;
+    var error = ViewBag.ErrorMessage;
+}
+
+@{
+    if (@error != null)
+    {
+        <script>
+            alert("@error");
+        </script>
+    }
 }
 
     <link href="~/Content/Inventory.css" rel="stylesheet" />
-    <script src="~/Scripts/Inventory.js"></script>
 
 <div>
     @using (Html.BeginForm()) { 
@@ -21,6 +30,13 @@
         @Html.ListBoxFor(u=> u.ToBeAddedItems, new MultiSelectList(AllItems, "Id", "Name" ), new {@Id="AllItemsBox", @Class="resizetest", size=50})
             <input type="submit" name="command" value="Add" id="AddButton"/>
             <input type="submit" name="command" value="More info" id="MoreInfoButton" />
+    </div>
+    <div id="MoneyPouch">
+        <p>Platinum: @Html.TextBoxFor(u => u.moneyPouch.Platinum, new { @Class = "tbMoneyPouch", @Value = @Inventory.MoneyPouch.Platinum })</p>
+        <p>Gold: @Html.TextBoxFor(u => u.moneyPouch.Gold, new { @Class = "tbMoneyPouch", @Value = @Inventory.MoneyPouch.Gold })</p>
+        <p>Silver: @Html.TextBoxFor(u => u.moneyPouch.Silver, new { @Class = "tbMoneyPouch", @Value = @Inventory.MoneyPouch.Silver })</p>
+        <p>Copper: @Html.TextBoxFor(u => u.moneyPouch.Copper, new { @Class = "tbMoneyPouch", @Value = @Inventory.MoneyPouch.Copper })</p>
+        <input type="submit" name="command" value="Save" id="SaveButton"/>
     </div>
     <div id="Buttons">
         <input type="submit" name="command" value="Increase +1" class="MyInvBt" id="Inc1" />
