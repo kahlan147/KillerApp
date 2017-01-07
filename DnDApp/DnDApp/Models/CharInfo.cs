@@ -41,7 +41,7 @@ namespace DnDApp.Models
 
         private void isAllNull()
         {
-            if (this.CharAge == null)
+            if (this.CharAge == 0)
             {
                 CharAge = 0;
             }

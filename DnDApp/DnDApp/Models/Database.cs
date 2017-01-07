@@ -272,19 +272,61 @@ namespace DnDApp.Models
 
         public static void AddItems(Inventory inventory)
         {
-            foreach (string itemId in inventory.ToBeAddedItems)
+            if (inventory.ToBeAddedItems.Count > 0 || inventory.ToBeAddedItems.Count != null)
             {
-                string commandString = @"INSERT INTO Inventory VALUES (" + CharId + ", " + itemId + ",1 , 0);";
-                General(commandString);
+                foreach (string itemId in inventory.ToBeAddedItems)
+                {
+                    string commandString = @"INSERT INTO Inventory VALUES (" + CharId + ", " + itemId + ",1 , 0);";
+                    General(commandString);
+                }
             }
         }
 
         public static void RemoveItems(Inventory inventory)
         {
-            foreach (string itemId in inventory.SelectedItems)
+            if (inventory.SelectedItems.Count > 0 || inventory.SelectedItems.Count != null)
             {
-                string commandString = @"DELETE FROM Inventory WHERE CharId = " + CharId + " AND ItemId = " + itemId + ";";
-                General(commandString);
+                foreach (string itemId in inventory.SelectedItems)
+                {
+                    string commandString = @"DELETE FROM Inventory WHERE CharId = " + CharId + " AND ItemId = " + itemId + ";";
+                    General(commandString);
+                }
+            }
+        }
+
+        public static void AddSpells(Spellbook spellbook)
+        {
+            if (spellbook.ToBeAddedSpells.Count > 0 || spellbook.ToBeAddedSpells.Count != null)
+            {
+                foreach (string SpellName in spellbook.ToBeAddedSpells)
+                {
+                    string commandString = @"INSERT INTO Spellbook VALUES (" + CharId + ", " + SpellName + ", 0);";
+                    General(commandString);
+                }
+            }
+        }
+
+        public static void RemoveSpells(Spellbook spellbook)
+        {
+            if (spellbook.SelectedSpells.Count > 0 || spellbook.SelectedSpells.Count != null)
+            {
+                foreach (string SpellName in spellbook.SelectedSpells)
+                {
+                    string commandString = @"DELETE FROM Spellbook WHERE CharId = " + CharId + " AND SpellName = " + SpellName + ";";
+                    General(commandString);
+                }
+            }
+        }
+
+        public static void PrepareSpells(Spellbook spellbook, bool Prepared)
+        {
+            if (spellbook.SelectedSpells.Count > 0 || spellbook.SelectedSpells.Count != null)
+            {
+                foreach (string SpellName in spellbook.SelectedSpells)
+                {
+                    string commandString = @"UPDATE Spellbook SET Prepared = " + Prepared + " WHERE CharId = " + CharId + " AND SpellName = " + SpellName + ";";
+                    General(commandString);
+                }
             }
         }
     }
