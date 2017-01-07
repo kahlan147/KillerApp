@@ -41,27 +41,56 @@ namespace DnDApp.Controllers
 
         public ActionResult Inventory()
         {
+            Database.CharId = 2;
+            Database.LoggedUser = "Niels";
             if (Database.AllowedToBeHere("high"))
             {
                 int CharId = Database.CharId;
+                List<Item> MyItems = new List<Item>();
+                Inventory inventory = new Inventory();
                 DataTable InventoryTable = Database.getInventory(CharId);
-                List<Item> InventoryList = new List<Item>();
                 foreach (DataRow InventoryRow in InventoryTable.Rows)
                 {
                     int ItemId = Convert.ToInt32(InventoryRow["ItemId"]);
+                    int Amount = Convert.ToInt32(InventoryRow["Amount"]);
                     DataRow ItemRow = Database.getItem(ItemId);
                     Models.Item newItem = new Models.Item(ItemRow);
-                    InventoryList.Add(newItem);
+                    newItem.Amount = Amount;
+                    MyItems.Add(newItem);
                 }
+                inventory.MyItems = MyItems;
                 List<Item> AllItems = Database.getAllItems();
+                ViewBag.Inventory = inventory;
                 ViewBag.AllItems = AllItems;
-                ViewBag.Inventory = InventoryList;
+                ViewBag.Test = "Yolo";
                 return View();
             }
             else
             {
                 return RedirectToAction("CharacterSelect", "MainMenu");
             }
+        }
+        [HttpPost]
+        public ActionResult Inventory(Inventory newinventory, string command)
+        {
+            
+            if (command.Equals("Increase"))
+            {
+                Database.IncDecItemInv(newinventory, true);
+            }
+            else if (command.Equals("Decrease"))
+            {
+                Database.IncDecItemInv(newinventory, false);
+            }
+            else if (command.Equals("Remove"))
+            {
+                Database.RemoveItems(newinventory);
+            }
+            else if (command.Equals("Add"))
+            {
+                Database.AddItems(newinventory);
+            }
+                return RedirectToAction("Inventory", "DnD");
         }
 
         public ActionResult Spellbook()

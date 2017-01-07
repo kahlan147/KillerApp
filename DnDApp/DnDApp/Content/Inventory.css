@@ -15,13 +15,34 @@
     border-style:solid;
 }
 
-#CurSelectItem{
+.resizetest{
+    max-height:100%;
+    width:100%;
+    max-width:100%;
+}
+
+#AllItems{
     position: absolute;
-    left:800px;
-    width:250px;
+    left:1100px;
+    width:350px;
     top:155px;
-    height:300px;
+    height:600px;
     border-style:solid;
+}
+
+#AllItemsBox{
+    position:absolute;
+    top:50px;
+    height:475px;
+}
+
+#AddButton{
+    position:absolute;
+    left:50px;
+    top:537px;
+    height:50px;
+    width:200px;
+
 }
 
 #Buttons{

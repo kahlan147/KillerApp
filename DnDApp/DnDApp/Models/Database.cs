@@ -245,5 +245,47 @@ namespace DnDApp.Models
             string commandString = @"execute DeleteCharacter " + character.CharId + ";";
             DataTable empty = General(commandString);
         }
+
+        public static void IncDecItemInv(Inventory inventory, bool IncDec)
+        {
+            if (inventory.SelectedItems.Count > 0 || inventory.SelectedItems.Count != null)
+            {
+                string commandString;
+                string IncreaseOrDecrease = "+";
+                if (IncDec == true)
+                {
+                    IncreaseOrDecrease = "+";
+                }
+                else
+                {
+                    IncreaseOrDecrease = "-";
+                }
+                foreach (string item in inventory.SelectedItems)
+                {
+                    commandString = @"UPDATE Inventory
+                                SET Amount = (SELECT Amount FROM Inventory WHERE CharId = " + CharId + " AND ItemId = " + item + ") " + IncreaseOrDecrease + "1" +
+                                    "WHERE CharId =  " + CharId + "  AND ItemId = " + item + ";";
+                    General(commandString);
+                }
+            }
+        }
+
+        public static void AddItems(Inventory inventory)
+        {
+            foreach (string itemId in inventory.ToBeAddedItems)
+            {
+                string commandString = @"INSERT INTO Inventory VALUES (" + CharId + ", " + itemId + ",1 , 0);";
+                General(commandString);
+            }
+        }
+
+        public static void RemoveItems(Inventory inventory)
+        {
+            foreach (string itemId in inventory.SelectedItems)
+            {
+                string commandString = @"DELETE FROM Inventory WHERE CharId = " + CharId + " AND ItemId = " + itemId + ";";
+                General(commandString);
+            }
+        }
     }
 }

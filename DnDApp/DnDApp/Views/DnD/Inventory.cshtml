@@ -3,8 +3,8 @@
 
 @{
     ViewBag.Title = "Inventory";
-    var MyInventory = @ViewBag.Inventory;
     var AllItems = @ViewBag.AllItems;
+    var Inventory = @ViewBag.Inventory;
 }
 
     <link href="~/Content/Inventory.css" rel="stylesheet" />
@@ -14,19 +14,17 @@
     @using (Html.BeginForm()) { 
     <img src="~/Resources/Scroll2.jpg" id="Img_scroll">
     <div id="Inventory">
+        @Html.ListBoxFor(u=> u.SelectedItems, new MultiSelectList(Inventory.MyItems, "Id", "NameAmount"), new{@Class="resizetest", size=40})
     </div>
-    <div id="CurSelectItem">
-
+    <div id="AllItems">
+        <h3>All items</h3>
+        @Html.ListBoxFor(u=> u.ToBeAddedItems, new MultiSelectList(AllItems, "Id", "Name" ), new {@Id="AllItemsBox", @Class="resizetest", size=50})
+            <input type="submit" name="command" value="Add" id="AddButton"/>
     </div>
     <div id="Buttons">
-
+        <input type="submit" name="command" value="Increase" />
+        <input type="submit" name="command" value="Decrease" />
+        <input type="submit" name="command" value="Remove" />
     </div>   
     }
 </div>
-    <script>
-        var Item = "@MyInventory[2]";
-        var Item2 = "@MyInventory[1]";
-        var Items = [Item, Item2];
-        CreateInventory(Items)
-       
-    </script>

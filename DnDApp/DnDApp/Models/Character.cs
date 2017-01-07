@@ -43,7 +43,36 @@ namespace DnDApp.Models
 
         public Character()
         {
+            this.CharName ="";
+            this.RaceName ="Human";
+            this.ClassName ="Barbarian";
+            this.CharLevel = 0;
+            this.Speed = 0;
+            this.StrScore = 0;
+            this.DexScore = 0;
+            this.ConScore = 0;
+            this.IntScore = 0;
+            this.WisScore = 0;
+            this.ChaScore = 0;
+            this.ArmorClass = 0;
+            this.Initiative = 0;
+            this.Inspiration = 0;
+            this.CurHealth = 0;
+            this.MaxHealth = 0;
+            this.TrainedSkills = 0;
+            this.TrainedSavingThrows = 0;
+            this.PlayerOrNpc = false;
+            this.FriendlyEnemy = false;
 
+            //CharInfo
+            this.CharAge =0;
+            this.CharHeight ="";
+            this.CharWeight ="";
+            this.CharEyes ="";
+            this.CharSkin ="";
+            this.CharHair ="";
+            this.CharDescription ="";
+            this.CharBackground = "";
         }
 
         public Character(DataRow Character, bool WhichData)
