@@ -6,12 +6,12 @@ using System.Data;
 
 namespace DnDApp.Models
 {
-    public class Spell
+    public class Spell : Iinformation
     {
-        public string SpellName { get; set; }
+        public string Name { get; set; }
         public string SpellType { get; set; }
         public string Level { get; set; }
-        public string SpellDescription { get; set; }
+        public string Description { get; set; }
         public int NrOfDice { get; set; }
         public int DiceDamage { get; set; }
         public string Components { get; set; }
@@ -22,15 +22,15 @@ namespace DnDApp.Models
 
         public bool Prepared { get; set; }
         private string preparedString {get{if(Prepared == true){return "Prepared";}else{return "Unprepared";}}}
-        public string Showable{get{return SpellName + ", " + preparedString;}}
+        public string Showable{get{return Name + ", " + preparedString;}}
         public string Dice { get { { return NrOfDice.ToString() + "D" + DiceDamage.ToString(); } } }
 
         public Spell()
         {
-            this.SpellName = "";
+            this.Name = "";
             this.SpellType = "";
             this.Level = "";
-            this.SpellDescription = "";
+            this.Description = "";
             this.NrOfDice = 0;
             this.DiceDamage = 0;
             this.Components = "";
@@ -41,10 +41,10 @@ namespace DnDApp.Models
 
         public Spell(DataRow SpellData)
         {
-            this.SpellName = SpellData["SpellName"].ToString();
+            this.Name = SpellData["SpellName"].ToString();
             this.SpellType = SpellData["SpellType"].ToString();
             this.Level = SpellData["Lvl"].ToString();
-            this.SpellDescription = SpellData["SpellDescription"].ToString();
+            this.Description = SpellData["SpellDescription"].ToString();
             if (SpellData["NumberOfDice"] is DBNull) { }
             else
             {

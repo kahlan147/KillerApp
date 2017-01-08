@@ -125,8 +125,8 @@ namespace DnDApp.Models
             DataTable spellbookTable = General(commandString);
             foreach (DataRow spellbookRow in spellbookTable.Rows)
             {
-                string SpellName = spellbookRow["SpellName"].ToString();
-                DataRow SpellRow = getSpell(SpellName);
+                string Name = spellbookRow["SpellName"].ToString();
+                DataRow SpellRow = getSpell(Name);
                 Spell newSpell = new Spell(SpellRow);
                 string prepared = spellbookRow["Prepared"].ToString();
                 if (prepared == "True")
@@ -142,9 +142,9 @@ namespace DnDApp.Models
             return spellbook;
         }
 
-        public static DataRow getSpell(string SpellName)
+        public static DataRow getSpell(string Name)
         {
-            string commandString = @"SELECT * FROM GetSpell ('" + SpellName + "');";
+            string commandString = @"SELECT * FROM GetSpell ('" + Name + "');";
             DataTable SpellList = General(commandString);
             return SpellList.Rows[0];
         }
@@ -353,9 +353,9 @@ namespace DnDApp.Models
         {
             if (spellbook.ToBeAddedSpells.Count > 0)
             {
-                foreach (string SpellName in spellbook.ToBeAddedSpells)
+                foreach (string Name in spellbook.ToBeAddedSpells)
                 {
-                    string commandString = @"INSERT INTO Spellbook VALUES (" + CharId + ", '" + SpellName + "', 0);";
+                    string commandString = @"INSERT INTO Spellbook VALUES (" + CharId + ", '" + Name + "', 0);";
                     General(commandString);
                 }
             }
@@ -365,9 +365,9 @@ namespace DnDApp.Models
         {
             if (spellbook.SelectedSpells.Count > 0)
             {
-                foreach (string SpellName in spellbook.SelectedSpells)
+                foreach (string Name in spellbook.SelectedSpells)
                 {
-                    string commandString = @"DELETE FROM Spellbook WHERE CharId = " + CharId + " AND SpellName = '" + SpellName + "';";
+                    string commandString = @"DELETE FROM Spellbook WHERE CharId = " + CharId + " AND SpellName = '" + Name + "';";
                     General(commandString);
                 }
             }
@@ -382,9 +382,9 @@ namespace DnDApp.Models
                 {
                     prepared = 1;
                 }
-                foreach (string SpellName in spellbook.SelectedSpells)
+                foreach (string Name in spellbook.SelectedSpells)
                 {
-                    string commandString = @"UPDATE Spellbook SET Prepared = " + prepared + " WHERE CharId = " + CharId + " AND SpellName = '" + SpellName + "';";
+                    string commandString = @"UPDATE Spellbook SET Prepared = " + prepared + " WHERE CharId = " + CharId + " AND SpellName = '" + Name + "';";
                     General(commandString);
                 }
             }
@@ -430,8 +430,8 @@ namespace DnDApp.Models
 
         public static void AddNewSpell(Spell spell)
         {
-            string commandString = @"EXECUTE dbo.AddCustomSpell " + spell.SpellName + ", " + spell.SpellType + ", " +
-                spell.Level + ", " + spell.SpellDescription + "," + spell.NrOfDice + "," + spell.DiceDamage + "," +
+            string commandString = @"EXECUTE dbo.AddCustomSpell " + spell.Name + ", " + spell.SpellType + ", " +
+                spell.Level + ", " + spell.Description + "," + spell.NrOfDice + "," + spell.DiceDamage + "," +
                 spell.Components + "," + spell.Range + "," + spell.CastTime+ "," + spell.Duration + ";";
             General(commandString);
         }

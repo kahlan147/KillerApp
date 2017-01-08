@@ -24,11 +24,11 @@
     {
         <img src="~/Resources/Scroll2.jpg" id="Img_scroll">
         <div id="Inventory">
-            @Html.ListBoxFor(u => u.SelectedSpells, new MultiSelectList(MySpellBook.MySpells, "SpellName", "Showable"), new { @Id = "MyInventoryList", @Class = "resizetest", size = 40 })
+            @Html.ListBoxFor(u => u.SelectedSpells, new MultiSelectList(MySpellBook.MySpells, "Name", "Showable"), new { @Id = "MyInventoryList", @Class = "resizetest", size = 40 })
         </div>
         <div id="AllItems">
             <h3>All spells</h3>
-            @Html.ListBoxFor(u => u.ToBeAddedSpells, new MultiSelectList(AllSpells, "SpellName", "SpellName"), new{@Id="AllItemsBox", @Class="resizetest", size=50})
+            @Html.ListBoxFor(u => u.ToBeAddedSpells, new MultiSelectList(AllSpells, "Name", "Name"), new{@Id="AllItemsBox", @Class="resizetest", size=50})
             <input type="submit" name="command" value="More info" id="MoreInfoButton"/>
             <input type="submit" name="command" value="Add" id="AddButton"/>
         </div>

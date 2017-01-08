@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DnDApp.Models
 {
-    public class Spellbook
+    public class Spellbook : ILister
     {
         public List<Spell> MySpells { get; set; }
         public List<string> SelectedSpells { get; set; }

@@ -173,8 +173,10 @@
     <Compile Include="Models\CharInfo.cs" />
     <Compile Include="Models\Database.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ILister.cs" />
     <Compile Include="Models\Inventory.cs" />
     <Compile Include="Models\Item.cs" />
+    <Compile Include="Models\Iinformation.cs" />
     <Compile Include="Models\MoneyPouch.cs" />
     <Compile Include="Models\Spell.cs" />
     <Compile Include="Models\Spellbook.cs" />

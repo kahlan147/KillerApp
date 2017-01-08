@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace DnDApp.Models
 {
-    public class Inventory
+    public class Inventory : ILister
     {
         public List<Item> MyItems { get; set; }
         public List<int> SelectedItems { get; set; }

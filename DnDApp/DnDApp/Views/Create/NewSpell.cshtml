@@ -22,8 +22,8 @@
 {
     <div id="Data">
         <h3>Spell name</h3>
-        @Html.TextBoxFor(u => u.SpellName, new { @Class = "form-control" })
-        @Html.ValidationMessageFor(u => u.SpellName)
+        @Html.TextBoxFor(u => u.Name, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.Name)
         <h3>Type/School</h3>
         @Html.TextBoxFor(u => u.SpellType, new { @Class = "form-control" })
         @Html.ValidationMessageFor(u => u.SpellType)
@@ -31,8 +31,8 @@
         @Html.TextBoxFor(u => u.Level, new { @Class = "form-control" })
         @Html.ValidationMessageFor(u => u.Level)
         <h3>Description</h3>
-        @Html.TextAreaFor(u => u.SpellDescription, new { @Class = "form-control" })
-        @Html.ValidationMessageFor(u => u.SpellDescription)
+        @Html.TextAreaFor(u => u.Description, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.Description)
         <h3>Damage</h3>
         <p>
             Amount of dice: @Html.TextBoxFor(u => u.NrOfDice, new { @Class = "form-control" })
