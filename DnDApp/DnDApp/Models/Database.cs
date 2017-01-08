@@ -21,7 +21,7 @@ namespace DnDApp.Models
             get
             {
                 string connection = "Server=KAHLAN;" + "Trusted_Connection=yes;" +
-            "database=D&DApp; " + "connection timeout=15";
+                "database=D&DApp; " + "connection timeout=15";
                 return connection;
             }
         }

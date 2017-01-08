@@ -31,7 +31,7 @@ namespace DnDApp.Controllers
             }
             catch
             {
-                ViewBag.ErrorMessage = "An Error Occured";
+                ViewBag.ErrorMessage = "Please fill in all fields, checkboxes are optional.";
                 return View();
             }
         }
@@ -56,7 +56,7 @@ namespace DnDApp.Controllers
             }
             catch
             {
-                ViewBag.ErrorMEssage = "An error occured or a spell with this name already exists.";
+                ViewBag.ErrorMEssage = "Either not all fields were filled in, or a spell with this name already exists.";
                 return View();
             }
         }
