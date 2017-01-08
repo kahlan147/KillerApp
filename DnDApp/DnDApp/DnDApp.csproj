@@ -171,7 +171,6 @@
     <Compile Include="Models\AppUser.cs" />
     <Compile Include="Models\Character.cs" />
     <Compile Include="Models\CharInfo.cs" />
-    <Compile Include="Models\CreateChar.cs" />
     <Compile Include="Models\Database.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Inventory.cs" />

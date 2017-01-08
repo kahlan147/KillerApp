@@ -28,8 +28,6 @@ namespace DnDApp.Models
         public int MaxHealth { get; set; }
         public int TrainedSkills { get; set; }
         public int TrainedSavingThrows { get; set; }
-        public bool PlayerOrNpc { get; set; }
-        public bool FriendlyEnemy { get; set; }
 
         //CharInfo
         public int CharAge { get; set; }
@@ -38,8 +36,6 @@ namespace DnDApp.Models
         public string CharEyes { get; set; }
         public string CharSkin { get; set; }
         public string CharHair { get; set; }
-        public string CharDescription { get; set; }
-        public string CharBackground { get; set; }
 
         public Character()
         {
@@ -61,8 +57,6 @@ namespace DnDApp.Models
             this.MaxHealth = 0;
             this.TrainedSkills = 0;
             this.TrainedSavingThrows = 0;
-            this.PlayerOrNpc = false;
-            this.FriendlyEnemy = false;
 
             //CharInfo
             this.CharAge =0;
@@ -111,14 +105,6 @@ namespace DnDApp.Models
             if (this.CharHair == null)
             {
                 CharHair = "";
-            }
-            if (this.CharDescription == null)
-            {
-                CharDescription = "";
-            }
-            if (this.CharBackground == null)
-            {
-                CharBackground = "";
             }
         }
 

@@ -35,6 +35,7 @@ namespace DnDApp.Models
             }
         }
 
+        //Handles all the queries and gives back the datatable
         private static DataTable General(string commandString)
         {
             DataTable dt = new DataTable();
@@ -51,6 +52,7 @@ namespace DnDApp.Models
             return dt;
         }
 
+        //returns wether the user is allowed to be on this page(is he logged in, has he selected a character?)
         public static bool AllowedToBeHere(string Permission)
         {
             if (LoggedUser == null)
