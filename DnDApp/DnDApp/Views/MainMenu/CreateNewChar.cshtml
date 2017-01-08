@@ -1,0 +1,60 @@
+﻿@using DnDApp.Models;
+
+@model DnDApp.Models.Character
+
+@{
+    ViewBag.Title = "CreateNewChar";
+    var Classes = ViewBag.Classes;
+    var Races = ViewBag.Races;
+}
+
+<link href="~/Content/CreateNew.css" rel="stylesheet" />
+
+<h2>CreateNewChar</h2>
+
+
+@using (Html.BeginForm())
+{
+    <div id="Data">
+        <h3>Character name</h3>
+        @Html.TextBoxFor(u => u.CharName, new { @id = "CharName", @Value = "Character Name", @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.CharName)
+        <h3>Class</h3>
+        @Html.ListBoxFor(u => u.ClassName, new SelectList(@Classes), new { @id="ClassBox", @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.ClassName)
+        <h3>Race</h3>
+        @Html.ListBoxFor(u => u.RaceName, new SelectList(@Races), new { @id="RaceBox", @Class = "form-control"})
+        @Html.ValidationMessageFor(u => u.RaceName)
+    
+        <h3>Level</h3>
+        @Html.TextBoxFor(u => u.CharLevel, new { @id = "CharLevel", @Value = "1", @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.CharLevel)
+        <h3>Speed</h3>
+        @Html.TextBoxFor(u => u.Speed, new { @id = "CharSpeed", @Value = "30", @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.Speed)
+        <br />
+        <input type="submit" value="Create" id="CreateButton"/>
+    </div>
+    <div id="Data2">
+        <h2>Scores</h2>
+        <h3>Strength</h3>
+        @Html.TextBoxFor(u => u.StrScore, new { @id = "StrScore", @Value = "0", @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.StrScore)
+        <h3>Dexterity</h3>
+        @Html.TextBoxFor(u => u.DexScore, new { @id = "DexScore", @Value = "0", @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.DexScore)
+        <h3>Constitution</h3>
+        @Html.TextBoxFor(u => u.ConScore, new { @id = "ConScore", @Value = "0", @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.ConScore)
+        <h3>Intellect</h3>
+        @Html.TextBoxFor(u => u.IntScore, new { @id = "IntScore", @Value = "0", @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.IntScore)
+        <h3>Wisdom</h3>
+        @Html.TextBoxFor(u => u.WisScore, new { @id = "WisScore", @Value = "0", @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.WisScore)
+        <h3>Charisma</h3>
+        @Html.TextBoxFor(u => u.ChaScore, new { @id = "ChaScore", @Value = "0", @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.ChaScore)
+        
+    </div>
+}

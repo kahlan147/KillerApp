@@ -12,7 +12,7 @@
 <h2>CharacterSelect</h2>
 
 <div id="ButtonLocations">
-    <input type="button" id="CreateChar" class="btn" value="Create new Character" onclick="location.href='/DnD/CreateNewChar'" />
+    <input type="button" id="CreateChar" class="btn" value="Create new Character" onclick="location.href='/MainMenu/CreateNewChar'" />
 </div>
 <div id="MyCharList">
     <table id="MyCharTable">
@@ -61,7 +61,7 @@
                     @Html.ActionLink("Characterpage", "CharacterPage", "DnD", new { id = item.CharId }, null)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete Character", "DeleteCharacter", "DnD", new { id = item.CharId }, null)
+                    @Html.ActionLink("Delete Character", "DeleteCharacter", "MainMenu", new { id = item.CharId }, null)
                 </td>
                 </tr>
                 }

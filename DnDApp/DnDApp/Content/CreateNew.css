@@ -1,0 +1,13 @@
+﻿#Data{
+    position:absolute;
+}
+
+#Data2{
+    position:absolute;
+    left:500px;
+}
+
+#CreateButton{
+    height:50px;
+    width:100px;
+}

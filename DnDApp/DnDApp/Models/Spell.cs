@@ -27,7 +27,16 @@ namespace DnDApp.Models
 
         public Spell()
         {
-
+            this.SpellName = "";
+            this.SpellType = "";
+            this.Level = "";
+            this.SpellDescription = "";
+            this.NrOfDice = 0;
+            this.DiceDamage = 0;
+            this.Components = "";
+            this.Range = "";
+            this.Duration = "";
+            this.CastTime = "";
         }
 
         public Spell(DataRow SpellData)

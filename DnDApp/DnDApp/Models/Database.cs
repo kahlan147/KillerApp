@@ -93,7 +93,7 @@ namespace DnDApp.Models
 
         public static DataRow GetCharacterInfo(int CharId)
         {
-            string commandString = @"SELECT * FROM GameCharInfo WHERE CharId = '" + CharId + "'";
+            string commandString = @"SELECT * FROM GetCharInfo(" + CharId + ")";
 
             DataTable CharacterInfo = General(commandString);
             return CharacterInfo.Rows[0];
@@ -102,7 +102,7 @@ namespace DnDApp.Models
         public static Inventory getInventory()
         {
             Inventory inventory = new Inventory();
-            string commandString = @"SELECT * FROM Inventory WHERE CharId = '" + CharId + "';";
+            string commandString = @"SELECT * FROM GetInventory(" + CharId + ");";
             DataTable InventoryTable = General(commandString);
             foreach (DataRow InventoryRow in InventoryTable.Rows)
             {
@@ -119,7 +119,7 @@ namespace DnDApp.Models
         public static Spellbook getSpellbook(int CharId)
         {
             Spellbook spellbook = new Spellbook();
-            string commandString = @"SELECT * FROM Spellbook WHERE CharId = '" + CharId + "';";
+            string commandString = @"SELECT * FROM GetSpellBook (" + CharId + ");";
             DataTable spellbookTable = General(commandString);
             foreach (DataRow spellbookRow in spellbookTable.Rows)
             {
@@ -142,14 +142,14 @@ namespace DnDApp.Models
 
         public static DataRow getSpell(string SpellName)
         {
-            string commandString = @"SELECT * FROM Spell WHERE SpellName = '" + SpellName + "';";
+            string commandString = @"SELECT * FROM GetSpell ('" + SpellName + "');";
             DataTable SpellList = General(commandString);
             return SpellList.Rows[0];
         }
 
         public static DataRow getItem(int ItemId)
         {
-            string commandString = @"SELECT * FROM Item WHERE ItemId = '" + ItemId + "'";
+            string commandString = @"SELECT * FROM ItemGet('" + ItemId + "')";
             DataTable ItemTable = General(commandString);
             DataRow ItemRow = ItemTable.Rows[0];
             return ItemRow;
@@ -175,10 +175,8 @@ namespace DnDApp.Models
         public static void SaveNewCharacter(Character character)
         {
             //Create a character in the GameCharacter table
-            string commandString = @"INSERT INTO GameCharacter VALUES ('" + character.CharName + "', '" + character.RaceName + "', '"  + character.ClassName + "', " +
-                character.CharLevel + ", "  + character.Speed + ", " + character.StrScore + ", " + character.DexScore + ", "  + character.ConScore + ", " + 
-                character.IntScore + ", "  + character.WisScore + ", "  + character.ChaScore + ", "  + 0 + ", "  + 0 + ", "  + 0 + ", "  + 0 + ", " + 0 + 
-                ", "  + 0 + ", "  + 0 + ", "  + 0 + ", "  + 0 + ")";
+            string commandString = @"EXECUTE CreateCharacter " + character.CharName + "," + character.RaceName + "," + character.ClassName + "," + character.CharLevel +
+                ","+character.Speed+","+character.StrScore+","+character.DexScore+","+character.ConScore+","+character.IntScore+","+character.WisScore+","+character.ChaScore+ ";";
             
             //get the, by de database given, charid of the added character
             DataTable results= General(commandString);
@@ -318,7 +316,7 @@ namespace DnDApp.Models
                 foreach (int item in inventory.SelectedItems)
                 {
                     commandString = @"UPDATE Inventory
-                                SET Amount = (SELECT Amount FROM Inventory WHERE CharId = " + CharId + " AND ItemId = " + item + ") " + IncreaseOrDecrease + amount +
+                                    SET Amount = (SELECT Amount FROM Inventory WHERE CharId = " + CharId + " AND ItemId = " + item + ") " + IncreaseOrDecrease + amount +
                                     "WHERE CharId =  " + CharId + "  AND ItemId = " + item + ";";
                     General(commandString);
                 }
@@ -331,7 +329,7 @@ namespace DnDApp.Models
             {
                 foreach (int itemId in inventory.ToBeAddedItems)
                 {
-                    string commandString = @"INSERT INTO Inventory VALUES (" + CharId + ", " + itemId + ",1 , 0);";
+                    string commandString = @"EXECUTE dbo.AddItemToInventory " + CharId +", "+  itemId +"," +  1+";";//@"INSERT INTO Inventory VALUES (" + CharId + ", " + itemId + ",1 , 0);";
                     General(commandString);
                 }
             }
@@ -404,6 +402,35 @@ namespace DnDApp.Models
             SET Coin_Platinum = " + updatedMoneyPouch.Platinum + ",Coin_Gold = " +
             updatedMoneyPouch.Gold + ",Coin_Silver = " + updatedMoneyPouch.Silver + ",Coin_Copper = " +
             updatedMoneyPouch.Copper + " WHERE CharId = " + CharId + ";";
+            General(commandString);
+        }
+
+        public static void AddNewItem(Item item)
+        {
+            int isMagical;
+            int isWearable;
+            if(item.IsMagical == true){
+                isMagical = 1;
+            }
+            else{
+                isMagical = 0;
+            }
+            if(item.Wearable == true){
+                isWearable = 1;
+            }
+            else{
+                isWearable = 0;
+            }
+            string commandString = @"EXECUTE dbo.AddCustomItem " + item.Name+ ", " +
+                item.Description + ", " + isMagical + "," + isWearable + "," + item.NrOfDice + "," + item.DiceDamage+";";
+            General(commandString);
+        }
+
+        public static void AddNewSpell(Spell spell)
+        {
+            string commandString = @"EXECUTE dbo.AddCustomSpell " + spell.SpellName + ", " + spell.SpellType + ", " +
+                spell.Level + ", " + spell.SpellDescription + "," + spell.NrOfDice + "," + spell.DiceDamage + "," +
+                spell.Components + "," + spell.Range + "," + spell.CastTime+ "," + spell.Duration + ";";
             General(commandString);
         }
     }

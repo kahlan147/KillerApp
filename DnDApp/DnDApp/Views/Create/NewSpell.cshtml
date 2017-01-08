@@ -1,0 +1,63 @@
+﻿
+@model DnDApp.Models.Spell
+
+@{
+    ViewBag.Title = "NewSpell";
+    var error = ViewBag.ErrorMessage;
+}
+
+@{
+    if (@error != null)
+    {
+        <script>
+            alert("@error");
+        </script>
+    }
+}
+
+<link href="~/Content/CreateNew.css" rel="stylesheet" />
+<h2>Create a new spell</h2>
+
+@using (Html.BeginForm())
+{
+    <div id="Data">
+        <h3>Spell name</h3>
+        @Html.TextBoxFor(u => u.SpellName, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.SpellName)
+        <h3>Type/School</h3>
+        @Html.TextBoxFor(u => u.SpellType, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.SpellType)
+        <h3>Level</h3>
+        @Html.TextBoxFor(u => u.Level, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.Level)
+        <h3>Description</h3>
+        @Html.TextAreaFor(u => u.SpellDescription, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.SpellDescription)
+        <h3>Damage</h3>
+        <p>
+            Amount of dice: @Html.TextBoxFor(u => u.NrOfDice, new { @Class = "form-control" })
+            @Html.ValidationMessageFor(u => u.NrOfDice)
+        </p>
+        <p>
+            Sides on the dice: @Html.TextBoxFor(u => u.DiceDamage, new { @Class = "form-control" })
+            @Html.ValidationMessageFor(u => u.DiceDamage)
+        </p>
+
+    </div>
+    <div id="Data2">
+        <h3>Components</h3>
+        @Html.TextBoxFor(u => u.Components, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.Components)
+        <h3>Range</h3>
+        @Html.TextBoxFor(u => u.Range, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.Range)
+        <h3>Cast Time</h3>
+        @Html.TextBoxFor(u => u.CastTime, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.CastTime)
+        <h3>Duration</h3>
+        @Html.TextBoxFor(u => u.Duration, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(u => u.Duration)
+        <br />
+        <input type="submit" value="Create" id="CreateButton" />
+    </div>
+}

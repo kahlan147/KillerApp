@@ -22,6 +22,16 @@ namespace DnDApp.Models
 
         public string Dice { get { { return NrOfDice.ToString() + "D" + DiceDamage.ToString(); } } }
 
+        public Item()
+        {
+            this.Name = "Unnamed item";
+            this.Description = "";
+            this.NrOfDice = 0;
+            this.DiceDamage = 0;
+            this.IsMagical = false;
+            this.Wearable = false;
+        }
+
         public Item(int id, string name, string description, bool isMagical, bool wearable, int nrOfDice, int diceDamage, bool custom)
         {
             this.Id = id;

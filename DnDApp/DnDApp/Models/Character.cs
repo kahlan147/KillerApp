@@ -71,8 +71,6 @@ namespace DnDApp.Models
             this.CharEyes ="";
             this.CharSkin ="";
             this.CharHair ="";
-            this.CharDescription ="";
-            this.CharBackground = "";
         }
 
         public Character(DataRow Character, bool WhichData)
@@ -145,8 +143,6 @@ namespace DnDApp.Models
             this.CharEyes = CharacterInfo["CharEyes"].ToString();
             this.CharSkin = CharacterInfo["CharSkin"].ToString();
             this.CharHair = CharacterInfo["CharHair"].ToString();
-            this.CharDescription = CharacterInfo["CharDescription"].ToString();
-            this.CharBackground = CharacterInfo["CharBackground"].ToString();
             isAllNull();
         }
 

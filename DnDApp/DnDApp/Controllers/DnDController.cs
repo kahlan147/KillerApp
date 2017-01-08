@@ -355,51 +355,7 @@ namespace DnDApp.Controllers
             return RedirectToAction("Spellbook", "Dnd");
         }
 
-        // /DnD/CreateNewChar
-        public ActionResult CreateNewChar()
-        {
-            if (Database.AllowedToBeHere("low"))
-            {
-                ViewBag.Classes = Database.getAllClasses();
-                ViewBag.Races = Database.getAllRaces();
-                return View();
-            }
-            else 
-            { 
-                return RedirectToAction("CharacterSelect", "MainMenu"); 
-            }
-        }
-
-        [HttpPost]
-        public ActionResult CreateNewChar(Character character)
-        {
-            Database.SaveNewCharacter(character);
-            return RedirectToAction("CharacterSelect", "MainMenu");
-        }
-
-        // /DnD/DeleteCharacter
-        public ActionResult DeleteCharacter(int id)
-        {
-            if (Database.AllowedToBeHere("low"))
-            {
-            DataRow result = Database.GetCharacter(id);
-            ViewBag.Name = result["CharName"].ToString();
-            ViewBag.Race = result["RaceName"].ToString();
-            ViewBag.Class = result["ClassName"].ToString();
-            ViewBag.Id = id;
-            return View();
-            }
-            else{
-                return RedirectToAction("LogInScreen", "Login");
-            }
-        }
-
-        [HttpPost]
-        public ActionResult DeleteCharacter(Character character)
-        {
-            Database.DeleteCharacter(character);
-            return RedirectToAction("CharacterSelect", "MainMenu");
-        }
+        
 
         // /DnD/MoreInfo
         public ActionResult MoreInfo()

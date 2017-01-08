@@ -1,0 +1,45 @@
+﻿@model DnDApp.Models.Item
+
+@{
+    ViewBag.Title = "NewItem";
+    var error = ViewBag.ErrorMessage;
+}
+
+@{
+    if (@error != null)
+    {
+        <script>
+            alert("@error");
+        </script>
+    }
+}
+
+<link href="~/Content/CreateNew.css" rel="stylesheet" />
+<h2>Create a new item</h2>
+
+@using (Html.BeginForm()) { 
+<div id="Data">
+    <h3>Item name</h3>
+    @Html.TextBoxFor(u => u.Name, new { @Class = "form-control" })
+    @Html.ValidationMessageFor(u => u.Name)
+    <h3>Description</h3>
+    @Html.TextAreaFor(u => u.Description, new { @Class = "form-control" })
+    @Html.ValidationMessageFor(u => u.Description)
+    <h3>Damage</h3>
+    <p>Amount of dice: @Html.TextBoxFor(u => u.NrOfDice, new { @Class = "form-control" })
+    @Html.ValidationMessageFor(u => u.NrOfDice)</p>
+    <p>Sides on the dice: @Html.TextBoxFor(u => u.DiceDamage, new { @Class = "form-control" })
+    @Html.ValidationMessageFor(u => u.DiceDamage)</p>
+
+</div>
+<div id="Data2">
+    <h3>Is magical?</h3>
+    @Html.CheckBoxFor(u => u.IsMagical, new { @Class = "form-control" })
+    @Html.ValidationMessageFor(u => u.IsMagical)
+    <h3>Is wearable?</h3>
+    @Html.CheckBoxFor(u => u.Wearable, new { @Class = "form-control" })
+    @Html.ValidationMessageFor(u => u.Wearable)
+    <br />
+    <input type="submit" value="Create" id="CreateButton" />
+</div>
+}
